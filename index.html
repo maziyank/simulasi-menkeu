@@ -3,1500 +3,1060 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menkeu RI — Simulasi 5 Tahun</title>
+<title>Menkeu RI — 5 Tahun Membantu Presiden</title>
 <style>
   :root {
-    --bg: #0b1220;
-    --bg2: #111c33;
-    --panel: #15213b;
-    --panel2: #1b2a4a;
-    --line: #243557;
-    --gold: #f5c451;
-    --gold2: #d9a436;
-    --green: #4ad07a;
-    --red: #ff6b6b;
-    --blue: #4a9eff;
-    --orange: #ff9a3c;
-    --purple: #a78bfa;
-    --text: #e8edf7;
-    --muted: #8a99bd;
-    --warn: #ffd166;
+    --bg: #0a0e1a;
+    --bg2: #141a2e;
+    --bg3: #1c2440;
+    --line: #2a3458;
+    --text: #e8ecf5;
+    --muted: #8a93ad;
+    --gold: #ffc857;
+    --green: #4ade80;
+    --red: #f87171;
+    --warn: #fbbf24;
+    --blue: #60a5fa;
+    --pres: #c084fc;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: radial-gradient(circle at 20% -10%, #1a2750 0%, var(--bg) 55%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 12px;
     line-height: 1.5;
+    padding: 16px;
   }
-  /* ---------- HEADER ---------- */
-  .topbar {
-    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-    background: linear-gradient(135deg, #15213b 0%, #0d1730 100%);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-    position: sticky; top: 6px; z-index: 30;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.35);
-  }
-  .topbar .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
-  .topbar .brand .crest { font-size: 26px; }
-  .topbar .brand .t1 { font-size: 16px; letter-spacing: 0.4px; }
-  .topbar .brand .t2 { font-size: 11px; color: var(--muted); font-weight: 500; }
-  .stat-row { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; justify-content: center; }
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--panel); border: 1px solid var(--line);
-    border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: help;
-    transition: transform 0.12s, border-color 0.12s;
-  }
-  .pill:hover { transform: translateY(-1px); border-color: var(--gold); }
-  .pill .lbl { color: var(--muted); }
-  .pill .val { font-weight: 700; }
-  .pill .ico { font-size: 14px; }
-  .pill.good { border-color: rgba(74,208,122,0.45); }
-  .pill.bad { border-color: rgba(255,107,107,0.45); }
-  .pill.warn { border-color: rgba(255,209,102,0.55); }
-  .help-btn {
-    background: var(--gold); color: #0b1220; border: none; cursor: pointer;
-    border-radius: 999px; padding: 6px 12px; font-weight: 700; font-size: 12px;
-  }
-  .help-btn:hover { background: var(--gold2); }
-  /* ---------- LAYOUT ---------- */
-  .stage {
-    display: grid; grid-template-columns: 1fr 320px; gap: 10px; max-width: 1180px; margin: 0 auto;
-  }
-  @media (max-width: 880px) { .stage { grid-template-columns: 1fr; } }
-  .main {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    padding: 14px; min-height: 540px;
-  }
-  .side {
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .card {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px;
-  }
-  .card h3 { font-size: 13px; color: var(--gold); margin-bottom: 8px; letter-spacing: 0.3px; text-transform: uppercase; }
-  /* ---------- SETUP SCREEN ---------- */
-  .setup { max-width: 880px; margin: 0 auto; }
-  .setup h1 { text-align: center; font-size: 28px; color: var(--gold); margin-bottom: 4px; letter-spacing: 1px; }
-  .setup .sub { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 18px; }
-  .setup h2 { font-size: 16px; margin: 18px 0 8px; color: var(--text); }
-  /* Disclaimer box */
+  .wrap { max-width: 780px; margin: 0 auto; }
+  #app { min-height: 100vh; }
+
+  /* ---------- INTRO ---------- */
+  .intro { text-align: center; padding: 40px 24px; max-width: 680px; margin: 0 auto; }
+  .intro h1 { color: var(--gold); font-size: 30px; letter-spacing: 1px; margin-bottom: 6px; }
+  .intro .sub { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+  .crest-big { font-size: 56px; margin-bottom: 10px; }
+
+  /* ---------- DISCLAIMER ---------- */
   .disclaimer-box {
     background: linear-gradient(135deg, rgba(255,193,7,0.08), rgba(220,53,69,0.05));
     border: 1px solid var(--warn);
     border-left: 4px solid var(--warn);
     border-radius: 10px;
     padding: 14px 16px;
-    margin: 14px 0 20px;
+    margin: 14px 0 22px;
+    text-align: left;
   }
   .disclaimer-title { font-weight: 700; color: var(--warn); font-size: 13px; margin-bottom: 6px; letter-spacing: 0.3px; }
   .disclaimer-body { color: var(--muted); font-size: 12.5px; line-height: 1.65; }
   .disclaimer-body b { color: var(--text); }
-  /* Game over disclaimer (smaller) */
-  .gameover .disclaimer-box { padding: 10px 12px; margin: 10px 0 4px; }
-  .gameover .disclaimer-title { font-size: 12px; }
-  .gameover .disclaimer-body { font-size: 11.5px; }
-  .setup input[type=text] {
-    width: 100%; background: var(--bg2); border: 1px solid var(--line); color: var(--text);
-    padding: 11px 14px; border-radius: 10px; font-size: 15px;
-  }
-  .setup input[type=text]:focus { outline: none; border-color: var(--gold); }
-  .btn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
-  .opt {
-    background: var(--panel2); border: 1px solid var(--line); color: var(--text);
-    padding: 12px; border-radius: 10px; cursor: pointer; text-align: left;
-    transition: border-color 0.12s, background 0.12s; font-size: 13px;
-  }
-  .opt:hover { border-color: var(--gold); }
-  .opt.sel { border-color: var(--gold); background: rgba(245,196,81,0.12); }
-  .opt .ttl { font-weight: 700; color: var(--text); display: block; margin-bottom: 3px; }
-  .opt .desc { color: var(--muted); font-size: 12px; line-height: 1.4; }
-  .opt .eff { color: var(--gold); font-size: 11px; margin-top: 6px; font-weight: 600; }
-  .opt .em { font-size: 18px; margin-right: 4px; }
-  .promise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+
+  /* ---------- CTA ---------- */
   .cta {
-    width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold2));
-    color: #0b1220; font-weight: 800; border: none; padding: 14px; border-radius: 12px;
-    font-size: 17px; cursor: pointer; margin-top: 22px; letter-spacing: 0.5px;
+    display: inline-block; background: var(--gold); color: #1a1300;
+    font-weight: 700; font-size: 16px; padding: 13px 32px;
+    border: none; border-radius: 10px; cursor: pointer;
+    letter-spacing: 0.5px; transition: transform 0.1s, opacity 0.2s;
   }
-  .cta:hover { filter: brightness(1.08); }
-  .cta:disabled { opacity: 0.4; cursor: not-allowed; }
-  /* ---------- EVENT ---------- */
-  .quarter-banner {
+  .cta:hover { transform: translateY(-1px); }
+  .cta:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ---------- HUD ---------- */
+  .hud {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px 14px; margin-bottom: 12px;
+    position: sticky; top: 8px; z-index: 10;
+  }
+  .hud-top {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 14px; background: var(--bg2); border-radius: 10px; margin-bottom: 12px;
-    border: 1px solid var(--line);
+    margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
   }
-  .quarter-banner .q { font-weight: 700; color: var(--gold); font-size: 15px; }
-  .quarter-banner .y { color: var(--muted); font-size: 12px; }
-  .event {
-    background: var(--bg2); border: 1px solid var(--line); border-radius: 12px;
-    padding: 16px; margin-bottom: 12px;
+  .hud-year { font-size: 15px; font-weight: 700; color: var(--pres); }
+  .hud-q-count { font-size: 12px; color: var(--muted); }
+  .hud-progress { height: 6px; background: var(--bg3); border-radius: 3px; margin-bottom: 10px; overflow: hidden; }
+  .hud-progress > div {
+    height: 100%; background: linear-gradient(90deg, var(--gold), var(--green));
+    transition: width 0.4s ease; border-radius: 3px;
   }
-  .event .who { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-weight: 700; font-size: 13px; margin-bottom: 8px; }
-  .event .who .av { width: 26px; height: 26px; border-radius: 50%; background: var(--panel2); display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid var(--line); }
-  .event .head { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-  .event .title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-  .event .desc { font-size: 14px; color: var(--text); margin-bottom: 14px; }
+  .hud-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 6px 8px; }
+  .stat {
+    display: flex; flex-direction: column; background: var(--bg3);
+    border-radius: 7px; padding: 6px 8px; border: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .stat .lbl { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+  .stat .val { font-size: 13px; font-weight: 700; }
+  .stat.good { border-color: rgba(74,222,128,0.4); }
+  .stat.bad { border-color: rgba(248,113,113,0.4); }
+  .stat .val.good { color: var(--green); }
+  .stat .val.bad { color: var(--red); }
+  .stat.flash { animation: flash 0.6s ease; }
+  @keyframes flash {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background: #2a3556; }
+    100% { transform: scale(1); }
+  }
+
+  /* ---------- TARGETS PANEL ---------- */
+  .targets-panel {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-left: 3px solid var(--pres);
+    border-radius: 10px; padding: 11px 14px; margin-bottom: 14px;
+  }
+  .targets-title { font-size: 12px; color: var(--pres); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
+  .targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 6px 10px; }
+  .target {
+    display: flex; flex-direction: column; gap: 2px;
+    font-size: 11.5px; padding: 4px 0;
+  }
+  .target .t-lbl { color: var(--muted); }
+  .target .t-row { display: flex; align-items: center; gap: 6px; }
+  .target .t-current { font-weight: 700; color: var(--text); font-size: 12.5px; }
+  .target .t-target { color: var(--muted); font-size: 11px; }
+  .target .t-check { font-size: 14px; }
+  .target.met .t-check { color: var(--green); }
+  .target.miss .t-check { color: var(--red); }
+
+  /* ---------- YEAR INTRO ---------- */
+  .year-intro {
+    text-align: center; padding: 32px 24px;
+    animation: slideIn 0.5s ease;
+  }
+  .year-intro .yr-num { font-size: 14px; color: var(--pres); font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+  .year-intro h1 { font-size: 28px; color: var(--gold); margin-bottom: 6px; }
+  .year-intro .yr-tagline { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+
+  .president-msg {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-left: 4px solid var(--pres); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 16px; text-align: left;
+    max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+  .president-msg .who { font-size: 12px; color: var(--pres); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .president-msg .msg { font-size: 14px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  .year-targets-card {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px;
+    max-width: 620px; margin: 0 auto 20px; text-align: left;
+  }
+  .year-targets-card h3 { color: var(--gold); font-size: 13px; margin-bottom: 8px; }
+  .year-targets-card .yt-row {
+    display: flex; justify-content: space-between; gap: 8px;
+    padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 13px;
+  }
+  .year-targets-card .yt-row:last-child { border-bottom: none; }
+  .year-targets-card .yt-row .yt-k { color: var(--muted); }
+  .year-targets-card .yt-row .yt-v { font-weight: 700; color: var(--gold); }
+
+  /* ---------- QUESTION ---------- */
+  .q-card {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 14px; padding: 22px 20px; animation: slideIn 0.35s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-num { color: var(--gold); font-size: 11.5px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .q-tag { color: var(--muted); font-size: 11px; margin-bottom: 4px; }
+  .q-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.35; }
+  .q-desc { color: var(--muted); font-size: 13.5px; margin-bottom: 18px; line-height: 1.6; }
+
   .choices { display: flex; flex-direction: column; gap: 8px; }
   .choice {
-    background: var(--panel2); border: 1px solid var(--line); color: var(--text);
-    padding: 12px 14px; border-radius: 10px; cursor: pointer; text-align: left;
-    transition: border-color 0.12s, background 0.12s; font-size: 14px;
+    background: var(--bg3); border: 1px solid var(--line);
+    border-left: 3px solid transparent; border-radius: 9px;
+    padding: 10px 14px; cursor: pointer; text-align: left;
+    color: var(--text); font-size: 13.5px; font-family: inherit;
+    transition: border-color 0.15s, background 0.15s, transform 0.08s; width: 100%;
   }
-  .choice:hover { border-color: var(--gold); background: rgba(245,196,81,0.08); }
-  .choice .lbl { font-weight: 600; }
-  .choice .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
-  /* ---------- LOG ---------- */
-  .log { max-height: 220px; overflow-y: auto; font-size: 12px; }
-  .log .entry { padding: 6px 0; border-bottom: 1px dashed var(--line); color: var(--text); }
-  .log .entry .t { color: var(--gold); font-weight: 600; margin-right: 6px; }
-  .log .entry.pos { color: #b6f0c8; }
-  .log .entry.neg { color: #f6b0b0; }
-  /* ---------- ACTIONS PANEL ---------- */
-  .tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
-  .tab {
-    background: var(--panel2); border: 1px solid var(--line); color: var(--muted);
-    padding: 7px 12px; border-radius: 8px; cursor: pointer; font-size: 12px;
+  .choice:hover:not(:disabled) { border-left-color: var(--gold); background: #243056; }
+  .choice:active:not(:disabled) { transform: scale(0.99); }
+  .choice:disabled { cursor: default; opacity: 0.85; }
+  .choice .lbl { display: block; font-weight: 600; margin-bottom: 3px; }
+  .choice .hint { font-size: 11.5px; color: var(--muted); }
+
+  .choice.picked-pos { border-left-color: var(--green); background: rgba(74,222,128,0.08); }
+  .choice.picked-neg { border-left-color: var(--red); background: rgba(248,113,113,0.08); }
+  .choice.picked-neutral { border-left-color: var(--blue); background: rgba(96,165,250,0.08); }
+
+  .feedback {
+    margin-top: 14px; padding: 11px 14px; border-radius: 9px;
+    font-size: 13px; animation: slideIn 0.3s ease;
   }
-  .tab.active { background: var(--gold); color: #0b1220; border-color: var(--gold); font-weight: 700; }
-  .tab:disabled { opacity: 0.35; cursor: not-allowed; }
-  .panel-tab { display: none; }
-  .panel-tab.active { display: block; }
-  .pol-list, .prog-list { display: grid; gap: 8px; }
-  .pol-item, .prog-item {
-    background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
-    padding: 10px 12px;
+  .feedback.pos { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: var(--green); }
+  .feedback.neg { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3); color: var(--red); }
+  .feedback.info { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.3); color: var(--blue); }
+  .feedback .fx-list { margin-top: 6px; font-size: 11.5px; color: var(--muted); }
+  .feedback .fx-list .pos { color: var(--green); }
+  .feedback .fx-list .neg { color: var(--red); }
+  .feedback .next-hint { margin-top: 8px; font-size: 11px; color: var(--muted); font-style: italic; }
+
+  /* ---------- YEAR REVIEW ---------- */
+  .review { padding: 28px 22px; max-width: 680px; margin: 0 auto; animation: slideIn 0.4s ease; }
+  .review h1 { color: var(--gold); font-size: 24px; text-align: center; margin-bottom: 4px; }
+  .review .sub { color: var(--muted); font-size: 13.5px; text-align: center; margin-bottom: 18px; }
+
+  .review-card {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px; margin-bottom: 14px;
   }
-  .pol-item .nm { font-weight: 700; font-size: 14px; }
-  .pol-item .ds { color: var(--muted); font-size: 12px; margin: 4px 0; }
-  .pol-item .fx { font-size: 11px; color: var(--gold); }
-  .pol-item button, .prog-item button {
-    background: var(--panel2); border: 1px solid var(--line); color: var(--text);
-    padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-top: 6px;
+  .review-card h3 { color: var(--pres); font-size: 13.5px; margin-bottom: 10px; }
+  .review-card .t-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 13px;
   }
-  .pol-item button:hover, .prog-item button:hover { border-color: var(--gold); }
-  .pol-item button:disabled, .prog-item button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .prog-item .pr { background: var(--line); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 6px; }
-  .prog-item .pr > div { background: linear-gradient(90deg, var(--gold), var(--gold2)); height: 100%; }
-  .prog-item .pct { font-size: 11px; color: var(--gold); margin-top: 4px; font-weight: 700; }
-  /* ---------- END QUARTER ---------- */
-  .end-quarter {
-    width: 100%; background: var(--green); color: #0b1220; font-weight: 800;
-    border: none; padding: 13px; border-radius: 12px; font-size: 16px; cursor: pointer; margin-top: 14px;
+  .review-card .t-row:last-child { border-bottom: none; }
+  .review-card .t-row .t-k { color: var(--muted); }
+  .review-card .t-row .t-v { display: flex; align-items: center; gap: 6px; }
+  .review-card .t-row .t-v .now { font-weight: 700; }
+  .review-card .t-row .t-v .now.met { color: var(--green); }
+  .review-card .t-row .t-v .now.miss { color: var(--red); }
+  .review-card .t-row .t-v .req { color: var(--muted); font-size: 11.5px; }
+  .review-card .t-row .badge { font-size: 14px; font-weight: 700; padding: 1px 8px; border-radius: 6px; }
+  .review-card .t-row .badge.met { background: rgba(74,222,128,0.15); color: var(--green); }
+  .review-card .t-row .badge.miss { background: rgba(248,113,113,0.15); color: var(--red); }
+
+  .president-reaction {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-left: 4px solid var(--pres); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 14px; text-align: left;
   }
-  .end-quarter:hover { filter: brightness(1.05); }
-  .end-quarter:disabled { opacity: 0.4; cursor: not-allowed; background: var(--panel2); color: var(--muted); }
-  /* ---------- MODAL ---------- */
-  .modal-backdrop {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-    z-index: 50; display: flex; align-items: center; justify-content: center; padding: 14px;
+  .president-reaction .who { font-size: 12px; color: var(--pres); font-weight: 700; margin-bottom: 6px; }
+  .president-reaction .msg { font-size: 13.5px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  /* ---------- GAME OVER / VICTORY ---------- */
+  .ending { padding: 28px 22px; max-width: 680px; margin: 0 auto; }
+  .ending h1 { color: var(--gold); font-size: 26px; text-align: center; margin-bottom: 6px; }
+  .verdict-big {
+    font-size: 26px; font-weight: 800; text-align: center;
+    padding: 16px; border-radius: 12px; margin: 14px 0;
   }
-  .modal {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    max-width: 540px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 18px;
+  .verdict-big.legendary { background: linear-gradient(135deg, rgba(255,200,87,0.18), rgba(74,222,128,0.1)); color: var(--gold); border: 1px solid var(--gold); }
+  .verdict-big.strong { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid var(--green); }
+  .verdict-big.decent { background: rgba(96,165,250,0.08); color: var(--blue); border: 1px solid var(--blue); }
+  .verdict-big.weak { background: rgba(248,113,113,0.08); color: var(--red); border: 1px solid var(--red); }
+  .verdict-label { text-align: center; color: var(--muted); font-size: 13.5px; margin-bottom: 16px; line-height: 1.55; }
+
+  .score-row { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 18px; }
+  .score-num { font-size: 38px; font-weight: 800; color: var(--gold); }
+  .score-max { font-size: 18px; color: var(--muted); }
+
+  .final-stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px;
+    background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 14px;
   }
-  .modal h2 { color: var(--gold); margin-bottom: 10px; font-size: 18px; }
-  .modal .close-x { float: right; cursor: pointer; background: var(--panel2); border: 1px solid var(--line); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-  .modal .pg { color: var(--muted); font-size: 11px; margin-bottom: 14px; letter-spacing: 1px; }
-  .modal .pg-no { background: var(--gold); color: #0b1220; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
-  .modal p { margin-bottom: 10px; font-size: 14px; }
-  .modal .nav { display: flex; justify-content: space-between; margin-top: 14px; }
-  .modal .nav button { background: var(--panel2); border: 1px solid var(--line); color: var(--text); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; }
-  .modal .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
-  /* ---------- TOAST ---------- */
-  .toast-host { position: fixed; top: 80px; right: 16px; z-index: 60; display: flex; flex-direction: column; gap: 8px; max-width: 320px; }
-  .toast { background: var(--panel2); border: 1px solid var(--gold); border-radius: 10px; padding: 10px 14px; font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,0.4); animation: slidein 0.25s ease-out; }
-  .toast.pos { border-color: var(--green); }
-  .toast.neg { border-color: var(--red); }
-  .toast .ti { font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-  .toast.pos .ti { color: var(--green); }
-  .toast.neg .ti { color: var(--red); }
-  @keyframes slidein { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-  /* ---------- GAME OVER ---------- */
-  .gameover { text-align: center; padding: 20px; }
-  .gameover .big { font-size: 28px; margin-bottom: 10px; }
-  .gameover .reason { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
-  .gameover .verdict { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; text-align: left; margin-bottom: 14px; font-size: 14px; }
-  .gameover .verdict .label { color: var(--gold); font-weight: 700; }
-  .gameover .score { font-size: 40px; color: var(--gold); font-weight: 800; margin: 14px 0; }
-  .gameover .promises { text-align: left; background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 14px; }
-  .gameover .promises .p { padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 13px; display: flex; justify-content: space-between; gap: 8px; }
-  .gameover .promises .p:last-child { border-bottom: none; }
-  .gameover .promises .p.yes { color: var(--green); }
-  .gameover .promises .p.no { color: var(--red); }
-  .gameover button { background: var(--gold); color: #0b1220; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; }
-  /* ---------- ADVISOR ---------- */
-  .advisor { display: flex; gap: 10px; align-items: flex-start; background: var(--bg2); border-left: 3px solid var(--gold); padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; font-size: 13px; }
-  .advisor .ava { font-size: 20px; }
-  .advisor .nm { color: var(--gold); font-weight: 700; font-size: 12px; }
-  .advisor .tx { color: var(--text); }
-  /* progress bar style for stats */
-  .pbar { display: inline-block; width: 38px; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; vertical-align: middle; margin-left: 4px; }
-  .pbar > div { height: 100%; background: var(--green); }
-  .pbar.mid > div { background: var(--warn); }
-  .pbar.low > div { background: var(--red); }
-  .small-muted { color: var(--muted); font-size: 11px; }
-  .ledger { width: 100%; font-size: 12px; }
-  .ledger td { padding: 4px 6px; border-bottom: 1px dashed var(--line); }
-  .ledger td.r { text-align: right; font-variant-numeric: tabular-nums; }
-  .ledger tr.in td.r { color: var(--green); }
-  .ledger tr.out td.r { color: var(--red); }
-  .ledger tr.tot td { font-weight: 700; border-top: 1px solid var(--line); }
+  .final-stats .stat .val { font-size: 14px; }
+
+  .summary {
+    background: var(--bg2); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 14px;
+  }
+  .summary h3 { color: var(--gold); font-size: 13.5px; margin-bottom: 8px; }
+  .summary .row { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+  .summary .row:last-child { border-bottom: none; }
+  .summary .row .k { color: var(--muted); }
+  .summary .row .v { font-weight: 600; }
+  .summary .row .v.pos { color: var(--green); }
+  .summary .row .v.neg { color: var(--red); }
+
+  .cta-center { text-align: center; margin-top: 18px; }
+
+  @media (max-width: 560px) {
+    .intro h1 { font-size: 24px; }
+    .q-title { font-size: 16px; }
+    .hud-stats { grid-template-columns: repeat(3, 1fr); }
+    .stat .val { font-size: 12px; }
+    .stat .lbl { font-size: 9px; }
+    .targets-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-
-<div id="app"></div>
-<div class="toast-host" id="toasts"></div>
-
+<div id="app" class="wrap"></div>
 <script>
 /* ============================================================
-   MENKEU RI — Simulasi 5 Tahun
+   MENKEU RI — 5 Tahun Membantu Presiden
    Game fiksi. Tokoh, angka, dan kejadian di sini rekaan.
+   Tujuan: edukasi dinamika keputusan fiskal & dukungan
+   kepada presiden selama satu periode jabatan (5 tahun).
    ============================================================ */
 
-/* ---------- HELP / TUTORIAL CONTENT ---------- */
-const TUT = [
-  { t: "🎯 Tujuanmu", b: "Kamu jadi <b>Menteri Keuangan RI</b> — <b>pembantu presiden</b>. Masa jabatan 5 tahun = 20 kuartal. Tiap kuartal ada kejadian fiskal yang harus kamu putuskan.<br><br>Target: selesaikan 20 kuartal tanpa dipecat, jalankan <b>mandat presiden</b>, tuntaskan <b>program prioritas presiden</b>, dan pertahankan kepercayaan Presiden, Pasar, DPR, dan Rakyat." },
-  { t: "⚠️ Kapan kamu dipecat?", b: "Game berakhir (dipecat/mundur) bila:<br>• Kas ≤ 0 (negara bangkrut / default SBN)<br>• Ekonomi ≤ 8 (resesi parah)<br>• Rakyat ≤ 8 (demo besar-besaran)<br>• Presiden ≤ 8 (dipecat Presiden)<br>• Pasar ≤ 8 (krisis kepercayaan, rating junk)<br>• Inflasi ≥ 96 (hyperinflasi)<br>• Utang/PDB ≥ 100% (krisis utang)" },
-  { t: "📋 Mandat Presiden", b: "Sebagai pembantu presiden, kamu tidak punya janji kampanye sendiri. Sebagai gantinya, <b>presiden menetapkan 3 mandat prioritas</b> di awal masa jabatan (mis: disiplin fiskal, jaga inflasi, selesaikan program).<br><br>Tiap <b>akhir tahun</b> (Q4), presiden meninjau pencapaianmu. Mandat yang terpenuhi = <b>+3 Presiden</b>; yang gagal = <b>penalti kepercayaan</b> dari presiden, pasar, atau rakyat. Lihat mandat aktif di panel kanan." },
-  { t: "🏛️ Program Prioritas Presiden", b: "Presiden juga menugaskan <b>3 program prioritas nasional</b> (IKN, Makan Bergizi Gratis, Hilirisasi Nikel, dll.). Program ini wajib kamu danai dari kas negara tiap kuartal di tab <b>🏛️ Program Presiden</b>.<br><br>Tiap program butuh beberapa tahap pendanaan. Saat tuntas: reward permanen + kepercayaan presiden naik. <b>Telat melewati batas waktu</b> = presiden kecewa (−5 Presiden)." },
-  { t: "📊 Stat yang kamu kelola", b: "<b>Kas</b> (Rp T) — uang tunai negara.<br><b>Utang</b> (Rp T) — total utang pemerintah (SBN + LN).<br><b>Ekonomi</b> (0–100) — iklim investasi & pertumbuhan.<br><b>Inflasi</b> (0–100, makin rendah makin baik).<br><b>Rakyat</b> — kepercayaan publik.<br><b>DPR</b> — dukungan fraksi terhadap kebijakanmu.<br><b>Presiden</b> — kepercayaan atasanmu (paling penting).<br><b>Pasar</b> — kepercayaan investor & lembaga rating.<br><b>Integritas</b> — bersih dari korupsi." },
-  { t: "🔄 Alur tiap kuartal", b: "1. Muncul <b>kejadian 🚨</b> → pilih satu jawaban. Efek tidak ditampilkan dulu, pakai insting & saran penasihat.<br>2. Sebelum tutup kuartal, kamu boleh: <b>tetapkan Kebijakan Fiskal</b>, <b>danai Program Kemenkeu</b>, <b>danai Program Presiden</b>, <b>Lobi DPR</b>, <b>Briefing Presiden</b>, atau <b>Audit APBN</b>.<br>3. Tekan <b>Tutup Kuartal →</b>. Waktu berjalan, penerimaan & belanja otomatis dipotong." },
-  { t: "💰 APBN tiap kuartal", b: "Saat Tutup Kuartal, sistem menghitung:<br><b>Penerimaan</b> = PPN + PPh + Cukai + Bea + Migas+Minerba + Dividen BUMN + Pajak Digital (bila ada). Besar penerimaan naik kalau Ekonomi tinggi & Reformasi Pajak aktif.<br><b>Belanja Wajib</b> = Gaji ASN + Bunga Utang + Subsidi + Transfer Daerah + Pertahanan. Bunga utang naik kalau Utang/PDB tinggi.<br><b>Kas baru</b> = Kas lama + Penerimaan − Belanja − Kebijakan − Program." },
-  { t: "📜 Utang & Rating", b: "Utang naik bila belanja > penerimaan. Kamu bisa <b>terbitkan SBN</b> (tambah utang, tambah kas) atau <b>refinancing</b> (perpanjang jatuh tempo).<br>Pasar dan lembaga rating melihat rasio <b>Utang/PDB</b> dan <b>defisit</b>. Rasio > 40% menekan Pasar & Ekonomi; > 60% mengancam downgrade; > 100% = krisis." },
-  { t: "🏛️ DPR & Presiden", b: "DPR menilai kebijakanmu. Kebijakan yang menambah penerimaan (Reformasi Pajak, Pajak Digital) disukai; yang menambah utang ditolak sebagian fraksi.<br><b>Briefing Presiden</b> (1× / kuartal) menjaga kepercayaan atasanmu. <b>Lobi DPR</b> (1× / kuartal) menambah dukungan partai. Presiden ≤ 8 = kamu dipecat." },
-  { t: "🛡️ Pasar & Valas", b: "Pasar menilai disiplin fiskalmu. Kebijakan populis (subsidi besar, BLT tanpa sumber) menekan Pasar; reformasi struktural menaikkannya.<br>Saat Rupiah melemah atau IHSG anjlok, kamu bisa <b>intervensi valas</b> (pakai cadangan devisa), <b>naikkan suku bunga</b>, atau <b>terbitkan SBN</b>." },
-  { t: "🧼 Korupsi & Integritas", b: "Bila ada kasus korupsi di kementerian teknis (Bea Cukai, DJP, BUMN), kamu pilih: <b>dukung penegakan hukum</b> (Integritas naik, Kas + penyitaan, tapi jalur gelap kesal), <b>diam</b>, atau <b>tutup kasus</b> (Presiden/Pasar senang kalau terkait kroni, tapi kalau bocor hancur reputasimu)." },
-  { t: "🏁 Akhir permainan", b: "Bila kamu selamat 20 kuartal, kamu dapat <b>Skor Akhir</b> berdasarkan: mandat presiden yang terpenuhi, program presiden yang tuntas, kondisi ekonomi & kas, integritas, dan dukungan politik.<br>Verdict: <b>Menteri Kepercayaan Presiden</b> / <b>Menkeu Andalan</b> / <b>Biasa Saja</b> / <b>Dilupakan Presiden</b> / <b>Gagal</b> / <b>Ditahan KPK</b>.<br><br>Selamat memimpin kas negara, Menkeu! 🇮🇩" },
+const DISCLAIMER = `
+  <div class="disclaimer-box">
+    <div class="disclaimer-title">📢 Disclaimer</div>
+    <div class="disclaimer-body">
+      Game ini <b>100% fiksi</b> dan dibuat <b>hanya untuk hiburan dan tujuan edukasi</b>. Semua tokoh, lembaga, kasus, angka, dan kejadian di sini adalah <b>rekaan</b>. Kemiripan dengan kenyataan adalah kebetulan belaka.
+      <br><br>
+      Game ini <b>bukan opini politik</b>, bukan ramalan, dan <b>bukan saran kebijakan</b>. Tujuannya membantu pemain merasakan dinamika pengambilan keputusan fiskal sebagai pembantu presiden.
+    </div>
+  </div>
+`;
+
+const STAT_META = [
+  { key: "kas",        ico: "💵", lbl: "Kas",        fmt: v => "Rp " + Math.round(v).toLocaleString("id-ID") + " T" },
+  { key: "ekonomi",    ico: "📈", lbl: "Ekonomi",    fmt: v => v.toFixed(0) },
+  { key: "inflasi",    ico: "🍞", lbl: "Inflasi",    fmt: v => (v/6).toFixed(1) + "%" },
+  { key: "rakyat",     ico: "🙂", lbl: "Rakyat",     fmt: v => v.toFixed(0) },
+  { key: "presiden",   ico: "👔", lbl: "Presiden",   fmt: v => v.toFixed(0) },
+  { key: "pasar",      ico: "🏦", lbl: "Pasar",      fmt: v => v.toFixed(0) },
+  { key: "integritas", ico: "🧼", lbl: "Integritas", fmt: v => v.toFixed(0) },
+];
+const STAT_KEYS = STAT_META.map(s => s.key);
+
+/* ---------- YEAR CONFIG: 5 tahun, tiap tahun ada target presiden ---------- */
+const YEARS = [
+  {
+    year: 1, tagline: "Tahun Pertama — Pembersihan & Stabilisasi",
+    presMsg: "\"Pak/Bu Menkeu, ekonomi masih rapuh. Tolong stabilkan dulu tahun ini. Jaga inflasi jangan sampai rakyat tambah menderita, dan bangun kepercayaan pasar. Saya percayakan ini ke Anda.\"",
+    targets: [
+      { key: "inflasi",   op: "<=", req: 24, label: "Inflasi ≤ 4.0%" },
+      { key: "pasar",     op: ">=", req: 60, label: "Pasar ≥ 60" },
+      { key: "presiden",  op: ">=", req: 55, label: "Kepercayaan Presiden ≥ 55" },
+    ],
+  },
+  {
+    year: 2, tagline: "Tahun Kedua — Penerimaan & Reformasi Pajak",
+    presMsg: "\"Penerimaan pajak kita masih lemah. Saya butuh reformasi. Naikkan rasio penerimaan tanpa mati-matian matikan rakyat. Jaga kas tetap sehat — saya ingin mulai bangun infrastruktur tahun depan.\"",
+    targets: [
+      { key: "kas",       op: ">=", req: 450, label: "Kas ≥ Rp 450 T" },
+      { key: "ekonomi",   op: ">=", req: 55,  label: "Ekonomi ≥ 55" },
+      { key: "integritas",op: ">=", req: 55,  label: "Integritas ≥ 55" },
+    ],
+  },
+  {
+    year: 3, tagline: "Tahun Ketiga — Pembangunan & Investasi",
+    presMsg: "\"Saya ingin dorong pertumbuhan keras-keras tahun ini — ini tahun tengah, saya butuh capaian nyata untuk rakyat. Tapi awas, jangan sampai defisit jebol. Pasar dan rakyat harus sama-sama percaya.\"",
+    targets: [
+      { key: "ekonomi",   op: ">=", req: 60, label: "Ekonomi ≥ 60" },
+      { key: "rakyat",    op: ">=", req: 55, label: "Rakyat ≥ 55" },
+      { key: "pasar",     op: ">=", req: 55, label: "Pasar ≥ 55" },
+    ],
+  },
+  {
+    year: 4, tagline: "Tahun Keempat — Disiplin Fiskal Menjelang Pilpres",
+    presMsg: "\"Tahun depan pilpres. Saya butuh gambaran ekonomi rapi: inflasi terkendali, kas aman, rakyat senang. Tolong jangan bikin skandal. Pertahankan kepercayaan saya — itu paling penting.\"",
+    targets: [
+      { key: "inflasi",   op: "<=", req: 24, label: "Inflasi ≤ 4.0%" },
+      { key: "rakyat",    op: ">=", req: 60, label: "Rakyat ≥ 60" },
+      { key: "presiden",  op: ">=", req: 60, label: "Kepercayaan Presiden ≥ 60" },
+    ],
+  },
+  {
+    year: 5, tagline: "Tahun Kelima — Penutupan & Warisan",
+    presMsg: "\"Tahun terakhir. Saya ingin tutup jabatan dengan warisan yang bersih. Kas sehat, integritas terjaga, pertumbuhan solid. Tolong pastikan semuanya aman sampai akhir. Jangan ada kejutan buruk.\"",
+    targets: [
+      { key: "kas",       op: ">=", req: 500, label: "Kas ≥ Rp 500 T" },
+      { key: "ekonomi",   op: ">=", req: 60,  label: "Ekonomi ≥ 60" },
+      { key: "integritas",op: ">=", req: 60,  label: "Integritas ≥ 60" },
+      { key: "presiden",  op: ">=", req: 60,  label: "Presiden ≥ 60" },
+    ],
+  },
 ];
 
-/* ---------- SETUP DATA ---------- */
-const BACKGROUNDS = [
-  { id: "djp", em: "📊", ttl: "Birokrat Pajak Senior", desc: "Mantan Dirjen Pajak. Paham struktur penerimaan, jago mengejar wajib pajak.", eff: "+Penerimaan Pajak, −DPR" },
-  { id: "bank", em: "🏦", ttl: "Bankir Sentral", desc: "Mantan Dirut BUMN Bank. Punya akses ke pasar keuangan & investor.", eff: "+Pasar, +kapasitas SBN, −Rakyat" },
-  { id: "akad", em: "🎓", ttl: "Akademisi Fiskal", desc: "Profesor ekonomi publik. Analisis tajam, tapi kurang lobi politik.", eff: "+Ekonomi, −DPR" },
-  { id: "imf", em: "🌍", ttl: "Eks-IMF / World Bank", desc: "Pernah jadi eksekutif lembaga internasional. Disegani pasar global.", eff: "+Pasar, +kapasitas utang LN, −Rakyat" },
-  { id: "usaha", em: "🏭", ttl: "Pengusaha Sektor Riil", desc: "Pengusaha manufaktur sukses. Paham dunia usaha, tapi dicurigai konflik kepentingan.", eff: "+Ekonomi, −Integritas awal" },
-];
+/* ---------- QUESTIONS: 4 pertanyaan per tahun × 5 tahun = 20 ---------- */
+const QUESTIONS = [
+  // ============ TAHUN 1 — STABILISASI MAKROEKONOMI ============
+  { year: 1, id: "y1q1", title: "Penanganan Defisit APBN di Atas Batas Maksimum",
+    desc: "Realisasi defisit APBN tahun berjalan diproyeksikan mencapai 3,42% PDB, melampaui batas maksimum 3,0% PDB sebagaimana diamanatkan Undang-Undang Keuangan Negara. Agensi pemeringkat internasional (S&P, Moody's, Fitch) menerbitkan peringatan outlook negatif dengan potensi penurunan rating sovereign dari BBB ke BBB-. Guna memitigasi risiko tersebut, Pemerintah wajib menurunkan rasio defisit di bawah ambang batas 3,0% PDB pada tahun fiskal berikutnya. Sebagai Menteri Keuangan, Saudara diminta menetapkan instrumen kebijakan fiskal yang akan dijalankan.",
+    choices: [
+      { lbl: "Pengurangan Belanja Operasional K/L (Cutting Expenditure)", hint: "−Kas kecil, +Pasar; resistensi politik dari kementerian", tone: "neutral", eff: { kas: 70, rakyat: -3, pasar: 3, presiden: -1 } },
+      { lbl: "Penerbitan Surat Berharga Negara (SBN) Konvensional & Sukuk", hint: "+Kas, beban bunga naik; netral bagi rasio defisit", tone: "neutral", eff: { kas: 200, pasar: -2, ekonomi: -1 } },
+      { lbl: "Realokasi Belanja Modal (Postponement Proyek Strategis)", hint: "Defisit turun cepat, −Ekonomi jangka menengah", tone: "neg", eff: { kas: 150, ekonomi: -4, rakyat: -2, pasar: 2 } },
+      { lbl: "Pertahankan Defisit, Prioritaskan Pertumbuhan 5,3%", hint: "Defisit jenuh; risiko penurunan rating", tone: "neg", eff: { pasar: -5, presiden: -2, ekonomi: 3, rakyat: 1 } },
+    ]},
+  { year: 1, id: "y1q2", title: "Reformasi Subsidi Energi yang Membengkak",
+    desc: "Realisasi pagu subsidi energi menembus Rp 304,7 Triliun, setara dengan 157% dari pagu awal Rp 134 Triliun, akibat kenaikan harga Indonesia Crude Price (ICP) rata-rata USD 92 per barel. Rasio subsidi energi terhadap total belanja negara mencapai 18,4%, menekan ruang fiskal untuk belanja pembangunan. Bauran kebijakan subsidi energi perlu direformasi agar lebih tepat sasaran dan efisien secara alokasi.",
+    choices: [
+      { lbl: "Reformasi Subsidi → Bantuan Langsung Tunai (BLT) Bertarget + Penyesuaian Harga Bertahap", hint: "+Kas, rawan sosial; +Inflasi transisi", tone: "neutral", eff: { kas: 110, rakyat: -6, pasar: 3, ekonomi: 2, inflasi: 4 } },
+      { lbl: "Kenaikan Harga BBM Bersubsidi (Premium & Solar) Secara Penuh", hint: "+Kas signifikan, +Inflasi tajam, −Rakyat", tone: "neg", eff: { kas: 140, inflasi: 8, rakyat: -8, pasar: 2 } },
+      { lbl: "Pertahankan Pagu Subsidi, Alihkan dari Pos Belanja Lain", hint: "+Rakyat, −Kas, ruang fiskal tergerus", tone: "neutral", eff: { kas: -130, rakyat: 4, pasar: -3, ekonomi: -1 } },
+      { lbl: "Skema Automatic Pricing Formula untuk Seluruh Jenis BBM", hint: "Mekanisme pasar transparan; resistensi awal", tone: "pos", eff: { kas: 95, pasar: 4, rakyat: -3, inflasi: 3 } },
+    ]},
+  { year: 1, id: "y1q3", title: "Penyelundupan Cukai DJBC dan Keterlibatan Oknum Pejabat",
+    desc: "Operasi pemberantasan penyelundupan oleh Direktorat Jenderal Bea dan Cukai (DJBC) di pelabuhan utama membongkar sindikat senilai Rp 2,3 Triliun. Investigasi awal menunjukkan keterlibatan oknum pejabat eselon I dan jaringan yang diduga memiliki kedekatan struktural dengan lingkaran kekuasaan. Komisi Pemberantasan Korupsi (KPK) meminta kewenangan penyidikan penuh. Keputusan ini akan memengaruhi integritas kelembagaan dan stabilitas politik.",
+    choices: [
+      { lbl: "Dukung Penyidikan Penuh KPK + Audit Forensik DJP", hint: "+Integritas, +Kas (sita); −Hubungan dengan Presiden", tone: "pos", eff: { integritas: 5, kas: 50, presiden: -3, pasar: 2 } },
+      { lbl: "Pembentukan Tim Independen Lintas-Lembaga (KPK–Kejaksaan–Polri)", hint: "Kompromi institusional; lambat", tone: "neutral", eff: { integritas: 2, kas: 25, presiden: -1, pasar: 1 } },
+      { lbl: "Penanganan Internal DJBC + Sanksi Administratif", hint: "+Presiden; −Integritas, pasar ragu", tone: "neg", eff: { integritas: -3, rakyat: -2, pasar: -1 } },
+      { lbl: "Penundaan Investigasi Menjelang Tahun Politik", hint: "+Presiden jangka pendek; −Integritas jangka panjang", tone: "neg", eff: { presiden: 4, integritas: -8, rakyat: -3, pasar: -2 } },
+    ]},
+  { year: 1, id: "y1q4", title: "Tekanan Nilai Tukar Rupiah dan Risiko Imported Inflation",
+    desc: "Nilai tukar Rupiah terdepresiasi 8,7% year-on-year ke level Rp 16.450 per USD, melebihi asumsi APBN Rp 15.000 per USD. Cadangan devisa tergerus menjadi USD 128,4 Miliar. Imported inflation mengancam pencapaian target inflasi tahunan 3% ± 1%. Koordinasi kebijakan fiskal–moneter diperlukan untuk stabilisasi nilai tukar dan pengendalian tekanan harga.",
+    choices: [
+      { lbl: "Intervensi Pasar Valuta Asing (Agresif Selling USD)", hint: "+Pasar, −Inflasi; cadangan devisa turun", tone: "neutral", eff: { pasar: 3, inflasi: -2, kas: -20 } },
+      { lbl: "Koordinasi dengan BI: Kenaikan BI Rate (Tightening Moneter)", hint: "−Inflasi, −Ekonomi, +Pasar", tone: "neutral", eff: { inflasi: -3, ekonomi: -2, pasar: 3 } },
+      { lbl: "Penerbitan SBN Valas (Offshore Issuance) untuk Top-up Cadangan", hint: "+Cadangan, +Utang valas, risiko kurs", tone: "neutral", eff: { kas: 60, pasar: 2, ekonomi: -1 } },
+      { lbl: "Pengetatan Capital Outflow (Regulasi Repatriasi & LFX)", hint: "+Stabilisasi rupiah; −Iklim investasi", tone: "neg", eff: { inflasi: -1, pasar: -3, ekonomi: -2, rakyat: -1 } },
+    ]},
 
-/* ---------- MANDAT PRESIDEN ----------
-   Menkeu adalah pembantu presiden — bukan pejabat yang dipilih lewat
-   pemilu, sehingga tidak ada janji kampanye. Sebagai gantinya, presiden
-   menetapkan 3 mandat prioritas yang WAJIB dijalankan Menkeu.
-   Setiap mandat punya batas waktu & penalti kalau gagal. */
-const PRESIDENTIAL_MANDATES = [
-  { id: "mdef", em: "📉", ttl: "Disiplin Fiskal", ds: "Presiden ingin defisit anggaran tetap di bawah 3% PDB. Patroli belanja ketat.", target: "Defisit ≤ 3% PDB di akhir tahun", chk: s => s.defisitPct <= 3.0, penalty: { presiden: -8, pasar: -4 } },
-  { id: "mutg", em: "📜", ttl: "Utang Terkendali", ds: "Presiden takut downgrade rating. Jaga rasio utang/PDB di bawah 40%.", target: "Utang/PDB ≤ 40% di akhir tahun", chk: s => s.utangPct <= 40, penalty: { presiden: -8, pasar: -5 } },
-  { id: "minf", em: "🍞", ttl: "Kendalikan Harga", ds: "Presiden ingin inflasi tetap terkendali di bawah 5%.", target: "Inflasi ≤ 5% di akhir tahun", chk: s => (s.inflasi/6) <= 5, penalty: { presiden: -6, rakyat: -5 } },
-  { id: "meko", em: "📈", ttl: "Pertumbuhan Kuat", ds: "Presiden ingin ekonomi tumbuh, indeks ≥ 60.", target: "Ekonomi ≥ 60 di akhir tahun", chk: s => s.ekonomi >= 60, penalty: { presiden: -6, pasar: -3 } },
-  { id: "mblt", em: "🤝", ttl: "Lindungi Rakyat", ds: "Presiden minta bantuan sosial rutin. Jalankan BLT minimal 2 kali per tahun.", target: "BLT ≥ 2 kali dalam setahun", chk: s => (s.policyCountYear['blt']||0) >= 2, penalty: { presiden: -6, rakyat: -6 } },
-  { id: "mref", em: "♻️", ttl: "Reformasi Struktural", ds: "Presiden ingin warisan reformasi. Jalankan Reformasi Pajak minimal 1 kali per tahun.", target: "Reformasi Pajak ≥ 1 kali per tahun", chk: s => (s.policyCountYear['refpajak']||0) >= 1, penalty: { presiden: -5, pasar: -4 } },
-  { id: "mprog", em: "🏗️", ttl: "Selesaikan Program", ds: "Presiden minta minimal 1 program nasional tuntas 100% dalam masa jabatan.", target: "≥ 1 program tuntas 100%", chk: s => s.programs.some(p => p.progress >= 100), penalty: { presiden: -10, pasar: -3 } },
-  { id: "maudit", em: "🧼", ttl: "Pemerintahan Bersih", ds: "Presiden ingin integritas terjaga, Integritas ≥ 55.", target: "Integritas ≥ 55 di akhir tahun", chk: s => s.integritas >= 55, penalty: { presiden: -5, pasar: -3 } },
-];
+  // ============ TAHUN 2 — REFORMASI PENERIMAAN NEGARA ============
+  { year: 2, id: "y2q1", title: "Paket Reformasi Pajak Komprehensif",
+    desc: "Paket Reformasi Pajak Komprehensif mengusulkan restrukturisasi tarif Pajak Penghasilan Orang Pribadi, perluasan basis Pajak Pertambahan Nilai, modernisasi administrasi Direktorat Jenderal Pajak melalui sistem Coretax, serta integrasi data lintas-instansi. Estimasi tambahan penerimaan Rp 138,2 Triliun (0,7% PDB). Namun, resistensi politik dari Koalisi Pengusaha Kecil-Menengah dan friksi internal koalisi pemerintahan cukup signifikan.",
+    choices: [
+      { lbl: "Implementasi Paket Reformasi Penuh (Tarif + Administrasi)", hint: "+Penerimaan besar, +Ekonomi, −Politik", tone: "pos", eff: { kas: 90, ekonomi: 3, presiden: -2, pasar: 2, rakyat: -2 } },
+      { lbl: "Implementasi Bertahap (Prioritas Administrasi Coretax)", hint: "Aman politik, dampak penerimaan lambat", tone: "neutral", eff: { kas: 30, ekonomi: 1, pasar: 1 } },
+      { lbl: "Hanya Modernisasi Administrasi (Tanpa Restrukturisasi Tarif)", hint: "Kompromi; integritas data naik", tone: "neutral", eff: { kas: 45, integritas: 2, pasar: 2 } },
+      { lbl: "Tunda Paket Reformasi (Status Quo)", hint: "−Pasar, −Kepercayaan internasional", tone: "neg", eff: { pasar: -3, presiden: -1, ekonomi: -1 } },
+    ]},
+  { year: 2, id: "y2q2", title: "Program Pengampunan Pajak (Tax Amnesty) Gelombang III",
+    desc: "Asosiasi Pengusaha Nasional mengusulkan program pengampunan pajak (Tax Amnesty) gelombang ketiga guna menarik repatriasi dana Warga Negara Indonesia yang berada di yurisdiksi luar negeri. Estimasi potensi repatriasi USD 28–45 Miliar. Namun, masyarakat sipil dan akademisi fiskal menilai program ini melanggar prinsip keadilan perpajakan dan mengikis kepatuhan sukarela (voluntary compliance).",
+    choices: [
+      { lbl: "Pelaksanaan Tax Amnesty III dengan Tarif Repatriasi 4–6%", hint: "+Kas besar; −Integritas kebijakan", tone: "neutral", eff: { kas: 320, integritas: -2, pasar: 1, ekonomi: 1 } },
+      { lbl: "Tolak Amnesty, Perkuat Program Compliance DJP (Enforcement)", hint: "+Integritas, penerimaan jangka panjang", tone: "pos", eff: { integritas: 4, presiden: 1, pasar: -1, kas: 20 } },
+      { lbl: "Tax Amnesty Terbatas (Sektor Strategis Tertentu)", hint: "Kompromi selektif", tone: "neutral", eff: { kas: 120, integritas: -1, pasar: 1 } },
+      { lbl: "Skema Voluntary Disclosure Program (VDP) Tanpa Amnesty Penuh", hint: "+Integritas, +Kas moderat", tone: "pos", eff: { kas: 80, integritas: 2, pasar: 2 } },
+    ]},
+  { year: 2, id: "y2q3", title: "Pemajakan Ekonomi Digital dan Adopsi Pillar Two OECD",
+    desc: "Nilai transaksi ekonomi digital (e-commerce, layanan streaming, software-as-a-service asing) mencapai USD 70 Miliar per tahun, namun belum sepenuhnya terkena Pajak Pertambahan Nilai. Estimasi kerugian potensial penerimaan negara Rp 38,6 Triliun per tahun. Kerangka kerja OECD/G20 Inclusive Framework Pillar Two menuntut penerapan pajak minimum global 15% bagi perusahaan multinasional dengan pendapatan di atas EUR 750 Juta.",
+    choices: [
+      { lbl: "Implementasi PPN Digital + Adopsi Penuh Pillar Two OECD", hint: "+Penerimaan, +Reputasi internasional", tone: "pos", eff: { kas: 35, pasar: 1, rakyat: -1, ekonomi: 1 } },
+      { lbl: "Pajak Digital Domestik (PNBP) Tanpa Adopsi Pillar Two", hint: "+Kas, risiko sengketa dagang", tone: "neutral", eff: { kas: 25, pasar: -2, ekonomi: -1 } },
+      { lbl: "Studi Kelayakan + Konsultasi Publik 12 Bulan", hint: "Aman; peluang kebijakan terlewat", tone: "neg", eff: { presiden: -1, pasar: -1, kas: -5 } },
+      { lbl: "Penundaan, Fokus Dukungan Ekosistem Digital Lokal", hint: "−Penerimaan; +Ekosistem UMKM digital", tone: "neutral", eff: { ekonomi: 1, rakyat: 2, kas: -10 } },
+    ]},
+  { year: 2, id: "y2q4", title: "Divestasi Saham BUMN Telekomunikasi",
+    desc: "Kementerian Badan Usaha Milik Negara mengusulkan secondary offering saham pada BUMN telekomunikasi senilai Rp 24,5 Triliun. Hasil divestasi dialokasikan untuk capital injection BUMN konstruksi strategis guna mendukung program infrastruktur strategis nasional. Kontroversi politik muncul terkait status BUMN telekomunikasi sebagai aset strategis negara versus kebutuhan pendanaan fiskal.",
+    choices: [
+      { lbl: "Divestasi Penuh + Realokasi ke BUMN Konstruksi", hint: "+Kas besar, +Pasar; −Presiden (tekanan politik)", tone: "neutral", eff: { kas: 240, pasar: 2, presiden: -2, ekonomi: 1 } },
+      { lbl: "Divestasi Sebagian (Minority Stake)", hint: "Kompromi politis; kas sedang", tone: "neutral", eff: { kas: 120, pasar: 1, presiden: 0 } },
+      { lbl: "Penundaan, Pemenuhan Melalui Revisi UU BUMN", hint: "Konsultatif; lambat", tone: "neutral", eff: { presiden: 2, pasar: -1, kas: -5 } },
+      { lbl: "Private Placement ke Investor Strategis Domestik", hint: "+Kas, lindungi kontrol domestik", tone: "pos", eff: { kas: 180, presiden: 1, rakyat: 1, pasar: 2 } },
+    ]},
 
-/* ---------- PROGRAM PRESIDEN (jangka panjang, diminta presiden) ---------- */
-const PRESIDENT_PROGRAMS = [
-  { id: "pp_icn", nm: "Ibu Kota Nusantara (Fase Awal)", ds: "Danai tahap awal pembangunan ibu kota baru. Presiden sangat menginginkan ini.", perQ: 120, totalNeed: 4, reward: { ekonomi: 4, presiden: 8, pasar: -2 }, targetQuarter: 12, pres: "tinggi" },
-  { id: "pp_mbg", nm: "Program Makan Bergizi Gratis", ds: "Program dapur untuk anak sekolah. Populis, beban kas besar.", perQ: 100, totalNeed: 4, reward: { rakyat: 8, presiden: 6, pasar: -3 }, targetQuarter: 12, pres: "tinggi" },
-  { id: "pp_sub", nm: "Subsidi Targeted Nasional", ds: "Alihkan subsidi umum ke kartu sembako. Reformasi sosial besar.", perQ: 90, totalNeed: 4, reward: { rakyat: 5, ekonomi: 3, presiden: 5, pasar: 2 }, targetQuarter: 16, pres: "sedang" },
-  { id: "pp_inf", nm: "Infrastruktur Tol Trans-Sumatera", ds: "Lanjutkan jalan tol lintas pulau.", perQ: 80, totalNeed: 4, reward: { ekonomi: 5, presiden: 4, pasar: 2 }, targetQuarter: 16, pres: "sedang" },
-  { id: "pp_hil", nm: "Hilirisasi Nikel & Baterai", ds: "Investasi hilirisasi tambang untuk industri baterai.", perQ: 90, totalNeed: 4, reward: { ekonomi: 5, taxAdd: 80, presiden: 4, pasar: 3 }, targetQuarter: 16, pres: "tinggi" },
-  { id: "pp_pdn", nm: "Program Pangan Nasional", ds: "Cadangan pangan & lumbung strategis.", perQ: 60, totalNeed: 4, reward: { rakyat: 4, inflasi: -4, presiden: 3, pasar: 1 }, targetQuarter: 16, pres: "sedang" },
-];
+  // ============ TAHUN 3 — PEMBANGUNAN DAN INVESTASI ============
+  { year: 3, id: "y3q1", title: "Kebijakan Hilirisasi Tambang Nikel dan Sengketa WTO",
+    desc: "Pemerintah mewajibkan hilirisasi nikel dengan melarang ekspor bijih nikel laterit. Uni Eropa mengajukan gugatan ke World Trade Organization (WTO) atas larangan tersebut, yang dinilai melanggar Article XI General Agreement on Tariffs and Trade (GATT) 1994. Potensi nilai tambah dan royalti dari hilirisasi diperkirakan Rp 178 Triliun per tahun, namun risiko sanksi WTO dan kompensasi perdagangan perlu dipertimbangkan.",
+    choices: [
+      { lbl: "Pertahankan Larangan + Benahi Kepatuhan WTO (Justifikasi Pasal XX GATT)", hint: "+Ekonomi, +Kas jangka panjang; −Politik diplomatik", tone: "pos", eff: { kas: -10, ekonomi: 3, pasar: 2, presiden: -1 } },
+      { lbl: "Modifikasi: Kuota Ekspor dengan Premium Royalti", hint: "Kompromi, +Kas moderat", tone: "neutral", eff: { ekonomi: 1, kas: 60, pasar: 1 } },
+      { lbl: "Cabut Larangan (Hindari Sanksi WTO)", hint: "−Pasar, −Ekonomi; +Hubungan diplomatik", tone: "neg", eff: { pasar: -2, ekonomi: -1, presiden: 1 } },
+      { lbl: "Hilirisasi Dipercepat + Insentif Fiskal Smelter (Tax Holiday)", hint: "+Investasi smelter; −Kas jangka pendek", tone: "pos", eff: { kas: -70, ekonomi: 4, pasar: 2, rakyat: 1 } },
+    ]},
+  { year: 3, id: "y3q2", title: "Tawaran Development Policy Loan Bank Dunia",
+    desc: "Bank Dunia menawarkan Development Policy Loan (DPL) senilai USD 1,5 Miliar dengan suku bunga koncessional 1,5% dan tenor 20 tahun. Persyaratan (conditionality) mencakup reformasi administrasi fiskal, peningkatan transparansi APBN, dan reformasi tata kelola BUMN. Rasio utang publik terhadap PDB saat ini 39,8%, masih di bawah ambang batas maksimum 40% PDB.",
+    choices: [
+      { lbl: "Terima DPL + Lakukan Conditionality Penuh", hint: "+Kas, +Pasar; −Rakyat (reformasi BUMN)", tone: "pos", eff: { kas: 75, pasar: 4, ekonomi: 2, rakyat: -2 } },
+      { lbl: "Terima DPL dengan Negosiasi Conditionality", hint: "Kompromi; lambat", tone: "neutral", eff: { kas: 60, pasar: 2, ekonomi: 1 } },
+      { lbl: "Tolak DPL, Jaga Kemandirian Fiskal", hint: "+Integritas; −Likuiditas tambahan", tone: "neutral", eff: { pasar: -1, ekonomi: 1, integritas: 1 } },
+      { lbl: "Tunda, Lakukan Cost-Benefit Analysis Independen", hint: "Netral; keputusan tertunda", tone: "neutral", eff: { presiden: 0, pasar: 0 } },
+    ]},
+  { year: 3, id: "y3q3", title: "Krisis Pangan dan Perluasan Bantuan Sosial",
+    desc: "Harga beras meningkat 22,4% year-on-year akibat gagal panen yang dipicu fenomena El Niño. Inflasi beras berkontribusi 0,8 poin terhadap inflasi inti (core inflation). Cadangan Beras Badan Urusan Logistik (Bulog) tergerus, dan diperlukan perluasan Bantuan Sosial menjelang panen raya kuartal keempat. Stabilisasi harga pangan menjadi prioritas politik dan ekonomi.",
+    choices: [
+      { lbl: "Bantuan Langsung Tunai (BLT) Rp 100 T + Operasi Pasar Bulog", hint: "+Rakyat, +Presiden; −Kas, sedikit −Pasar", tone: "pos", eff: { kas: -100, rakyat: 7, presiden: 2, pasar: -2 } },
+      { lbl: "Operasi Pasar & Subsidi Pupuk untuk Produksi", hint: "−Inflasi struktural, +Rakyat", tone: "neutral", eff: { kas: -40, inflasi: -4, rakyat: 3, ekonomi: 1 } },
+      { lbl: "Importasi Beras 2 Juta Ton + Operasi Pasar", hint: "+Stok; tekanan rupiah & petani lokal", tone: "neutral", eff: { kas: -55, inflasi: -3, rakyat: -1, ekonomi: -1 } },
+      { lbl: "Biarkan Mekanisme Pasar (Intervensi Terbatas)", hint: "−Rakyat, +Inflasi; +Pasar", tone: "neg", eff: { rakyat: -8, inflasi: 5, presiden: -3, pasar: 1 } },
+    ]},
+  { year: 3, id: "y3q4", title: "Restrukturisasi BUMN Defisit",
+    desc: "Sebanyak 42 dari 107 BUMN melaporkan rugi pada laporan keuangan tahun lalu. Beban subsidi implisit ke BUMN defisit mencapai Rp 82,6 Triliun, menekan ruang fiskal. Menteri BUMN mengusulkan paket restrukturisasi: merger antar-perusahaan sejenis, divestasi aset non-strategis, dan likuidasi BUMN yang tidak lagi relevan secara strategis.",
+    choices: [
+      { lbl: "Restrukturisasi Radikal (Merger, Divestasi, Likuidasi)", hint: "+Ekonomi, +Pasar; −Politik", tone: "pos", eff: { kas: -50, ekonomi: 3, pasar: 3, presiden: -1 } },
+      { lbl: "Restrukturisasi Sebagian (BUMN Non-Strategis Saja)", hint: "Kompromi; dampak moderat", tone: "neutral", eff: { kas: -20, ekonomi: 1, pasar: 1 } },
+      { lbl: "Capital Injection ke BUMN Strategis + Reformasi Tata Kelola", hint: "+BUMN strategis; −Kas besar", tone: "neutral", eff: { kas: -90, ekonomi: 2, presiden: 1 } },
+      { lbl: "Tunda, Perkuat Pengawasan Kementerian BUMN", hint: "Status quo; −Pasar", tone: "neg", eff: { presiden: 2, ekonomi: -1, pasar: -2 } },
+    ]},
 
-/* ---------- KEBAIJAKAN ---------- */
-const POLICIES = [
-  { id: "refpajak", nm: "Reformasi Pajak", ds: "Restrukturisasi tarif & administrasi. Penerimaan pajak naik permanen.", fx: "+Rp 180 T penerimaan/q, +3 Ekonomi, −4 DPR, +2 Pasar", cost: 0, eff: { taxAdd: 180, ekonomi: 3, dpr: -4, pasar: 2 }, once: false, cd: 2 },
-  { id: "pajdig", nm: "Pajak Digital", ds: "Kenakan pajak pada transaksi platform & e-commerce asing.", fx: "+Rp 70 T penerimaan/q, +1 Pasar, −1 Rakyat", cost: 0, eff: { taxAdd: 70, pasar: 1, rakyat: -1 }, once: false, cd: 2 },
-  { id: "taxam", nm: "Tax Amnesty", ds: "Pengampunan pajak, tarik dana pulang dari luar negeri.", fx: "+Rp 320 T sekali, −2 Integritas, +1 Pasar", cost: 0, eff: { kas: 320, integritas: -2, pasar: 1 }, once: true },
-  { id: "ppn12", nm: "Naikkan PPN 11% → 12%", ds: "Tarif PPN naik 1 poin. Penerimaan langsung naik, tapi harga ikut.", fx: "+Rp 95 T penerimaan/q, +3 Inflasi, −5 Rakyat, +2 Pasar", cost: 0, eff: { taxAdd: 95, inflasi: 3, rakyat: -5, pasar: 2 }, once: false, cd: 3 },
-  { id: "pphbadan", nm: "Naikkan PPh Badan 22% → 25%", ds: "Tarif pajak perusahaan naik. Tambah penerimaan, tekan investasi.", fx: "+Rp 110 T penerimaan/q, −3 Ekonomi, −2 Pasar", cost: 0, eff: { taxAdd: 110, ekonomi: -3, pasar: -2 }, once: false, cd: 3 },
-  { id: "subsbbm", nm: "Reformasi Subsidi BBM (Targeted)", ds: "Alihkansubsidi umum ke BLT bbm. Hemat kas, rawan demo.", fx: "−Rp 110 T belanja subsidi/q, −6 Rakyat, +3 Pasar, +2 Ekonomi", cost: 0, eff: { subsidiCut: 110, rakyat: -6, pasar: 3, ekonomi: 2 }, once: false, cd: 3 },
-  { id: "subspgn", nm: "Operasi Pasar Pangan", ds: "Lepas stok beras negara, tekan harga pangan.", fx: "−Rp 35 T, −4 Inflasi, +3 Rakyat", cost: 35, eff: { inflasi: -4, rakyat: 3 }, once: false, cd: 2 },
-  { id: "hilirtmb", nm: "Hilirisasi Tambang", ds: "Wajibkan ekspor mineral olahan, tambah royalti.", fx: "+Rp 60 T penerimaan/q, +3 Ekonomi, +2 Pasar, −2 DPR", cost: 40, eff: { taxAdd: 60, ekonomi: 3, pasar: 2, dpr: -2 }, once: false, cd: 3 },
-  { id: "blt", nm: "Bantuan Langsung Tunai (BLT)", ds: "Salurkan bantuan tunai ke rumah tangga miskin.", fx: "−Rp 80 T, +5 Rakyat, −1 Pasar", cost: 80, eff: { rakyat: 5, pasar: -1 }, once: false, cd: 2 },
-  { id: "efisiensi", nm: "Efisiensi Belanja Negara", ds: "Pangkas belanja operasional kementerian.", fx: "−Rp 70 T belanja/q, +2 Pasar, −3 DPR, −2 Rakyat", cost: 0, eff: { belanjaCut: 70, pasar: 2, dpr: -3, rakyat: -2 }, once: false, cd: 3 },
-  { id: "privat", nm: "Privatisasi BUMN", ds: "Jual saham BUMN ke publik, tambah kas sekali.", fx: "+Rp 240 T sekali, +2 Pasar, −3 DPR", cost: 0, eff: { kas: 240, pasar: 2, dpr: -3 }, once: true },
-  { id: "pajakkarbon", nm: "Pajak Karbon", ds: "Pajak emisi karbon untuk industri besar.", fx: "+Rp 35 T penerimaan/q, +1 Ekonomi, +2 Pasar, −1 Rakyat", cost: 0, eff: { taxAdd: 35, ekonomi: 1, pasar: 2, rakyat: -1 }, once: false, cd: 2 },
-  { id: "pajakmewah", nm: "Pajak Barang Mewah (Tinggi)", ds: "Naikkan PPNBM untuk mewah & mewahimewah.", fx: "+Rp 25 T penerimaan/q, +2 Rakyat, −1 Ekonomi", cost: 0, eff: { taxAdd: 25, rakyat: 2, ekonomi: -1 }, once: false, cd: 2 },
-  { id: "taxholiday", nm: "Tax Holiday Investasi", ds: "Bebas pajak sementara untuk investasi baru.", fx: "−Rp 50 T penerimaan/q, +5 Ekonomi, +1 Pasar", cost: 0, eff: { taxCut: 50, ekonomi: 5, pasar: 1 }, once: false, cd: 4 },
-  { id: "sukubunga", nm: "Koordinasi Suku Bunga (BI)", ds: "Ajak BI naikkan suku bunga, perkuat Rupiah.", fx: "−2 Inflasi, −2 Ekonomi, +3 Pasar, +Rp 0", cost: 0, eff: { inflasi: -2, ekonomi: -2, pasar: 3 }, once: false, cd: 2 },
-  { id: "intervensi", nm: "Intervensi Valas", ds: "Jual dolar dari cadangan devisa, sangga Rupiah.", fx: "−USD 5 B cadangan, −2 Inflasi, +2 Pasar", cost: 0, eff: { devisa: -5, inflasi: -2, pasar: 2 }, once: false, cd: 2 },
-  { id: "terbitsbn", nm: "Terbitkan SBN Warisan Retail", ds: "Jual SBN ke ritel, tambah kas & utang.", fx: "+Rp 200 T kas, +Rp 200 T utang, +1 Pasar", cost: 0, eff: { kas: 200, utang: 200, pasar: 1 }, once: false, cd: 2 },
-  { id: "refinas", nm: "Refinancing Utang Lama", ds: "Perpanjang jatuh tempo utang, tekan beban bunga.", fx: "−Rp 30 T belanja bunga/q, +2 Pasar, −1 DPR", cost: 0, eff: { bungaCut: 30, pasar: 2, dpr: -1 }, once: false, cd: 3 },
-  { id: "audit", nm: "Audit Independen APBN", ds: "Minta BPK audit, transparansi & integritas naik.", fx: "+4 Integritas, +2 Pasar, −1 DPR", cost: 10, eff: { integritas: 4, pasar: 2, dpr: -1 }, once: false, cd: 2 },
-];
+  // ============ TAHUN 4 — DISIPLIN FISKAL MENJELANG PEMILU ============
+  { year: 4, id: "y4q1", title: "Penyesuaian Tarif PPN Sesuai UU HPP",
+    desc: "Berdasarkan Undang-Undang Harmonisasi Peraturan Perpajakan (UU HPP), tarif Pajak Pertambahan Nilai (PPN) dijadwalkan dinaikkan dari 11% menjadi 12% per 1 Januari tahun depan. Estimasi penerimaan tambahan Rp 47,8 Triliun. Namun, inflasi inti diproyeksi meningkat 0,4 poin, dan pelaksanaan berdekatan dengan pelaksanaan Pemilihan Umum Presiden yang tinggal 9 bulan lagi.",
+    choices: [
+      { lbl: "Implementasi Penuh Sesuai Jadwal UU HPP", hint: "+Kas, +Inflasi, −Rakyat", tone: "neg", eff: { kas: 48, inflasi: 4, rakyat: -5, pasar: 2 } },
+      { lbl: "Tunda 6–12 Bulan (Pasca-Pemilu)", hint: "Aman politik; penerimaan tertunda", tone: "neutral", eff: { presiden: -1, pasar: 1, kas: -5 } },
+      { lbl: "Implementasi + Kompensasi BLT + Insentif UMKM", hint: "Lunak; kas tergerus moderat", tone: "neutral", eff: { kas: -12, inflasi: 2, rakyat: -1, ekonomi: 1 } },
+      { lbl: "Modifikasi: Kenaikan Terbatas ke Sektor Non-Esensial", hint: "Kompromi selektif; +Kas moderat", tone: "pos", eff: { kas: 22, inflasi: 1, rakyat: -1, pasar: 1 } },
+    ]},
+  { year: 4, id: "y4q2", title: "Permintaan Belanja Tambahan Presiden Menjelang Tahun Politik",
+    desc: "Presiden meminta perluasan program Bantuan Langsung Tunai (BLT) sebesar Rp 120 Triliun menjelang tahun politik dengan pertimbangan stabilisasi daya beli masyarakat. Namun, realisasi permintaan tersebut akan mendorong rasio defisit kembali mendekati ambang batas 3,0% PDB, dan dapat memicu kekhawatiran pasar terhadap disiplin fiskal.",
+    choices: [
+      { lbl: "Setujui Penuh Rp 120 T (Perpanjangan Pagu Bansos)", hint: "+Presiden, +Rakyat; −Kas, −Pasar", tone: "neutral", eff: { kas: -120, presiden: 4, rakyat: 5, pasar: -2 } },
+      { lbl: "Setujui Sebagian Rp 60 T dengan Retargeting", hint: "Kompromi fiskal-politik", tone: "neutral", eff: { kas: -60, presiden: 2, rakyat: 2 } },
+      { lbl: "Tolak Halus, Alihkan ke Program Produktif (Padat Karya)", hint: "−Presiden, +Pasar, +Ekonomi", tone: "neg", eff: { presiden: -3, pasar: 2, ekonomi: 1, rakyat: 1 } },
+      { lbl: "Alternatif: Subsidi Bahan Bakar untuk Angkutan Publik", hint: "Target terbatas, dampak inflasi terkendali", tone: "neutral", eff: { kas: -40, inflasi: -1, rakyat: 2, ekonomi: 1 } },
+    ]},
+  { year: 4, id: "y4q3", title: "Manajemen Cadangan Devisa dan Koordinasi Suku Bunga",
+    desc: "Cadangan devisa tercatat USD 134,5 Miliar (setara 6,2 bulan impor). BI Rate berada di level 6,00%. Pertumbuhan kredit perbankan melambat menjadi 8,4% year-on-year. Pemerintah menghadapi trade-off antara stabilisasi nilai tukar rupiah (akumulasi cadangan) dan dukungan terhadap pertumbuhan ekonomi melalui likuiditas kredit.",
+    choices: [
+      { lbl: "Akumulasi Cadangan + Koordinasi Sterilisasi dengan BI", hint: "+Pasar, +Stabilitas; −Kas", tone: "pos", eff: { kas: -40, pasar: 3, presiden: 1, ekonomi: -1 } },
+      { lbl: "Pakai Cadangan untuk Subsidi Suku Bunga Kredit Prioritas", hint: "+Ekonomi, +Rakyat; −Pasar", tone: "neutral", eff: { ekonomi: 4, pasar: -2, kas: -20, rakyat: 1 } },
+      { lbl: "Pengetatan Capital Controls (Regulasi Outflow)", hint: "+Stabilitas; −Iklim investasi", tone: "neg", eff: { pasar: -3, ekonomi: -2, inflasi: -1 } },
+      { lbl: "Kebijakan Netral (Biarkan BI Menentukan)", hint: "Status quo; presiden datar", tone: "neutral", eff: { pasar: 0, ekonomi: 0, presiden: 0 } },
+    ]},
+  { year: 4, id: "y4q4", title: "Indikasi Markup Proyek Strategis Nasional",
+    desc: "Inspektorat Jenderal menemukan indikasi markup senilai Rp 18,7 Triliun pada proyek tol laut yang dikategorikan sebagai Proyek Strategis Nasional (PSN). Investigasi awal menunjukkan keterlibatan kontraktor yang berafiliasi dengan tim sukses politik. Badan Pemeriksa Keuangan (BPK) meminta audit khusus. Pemilihan Umum Presiden tinggal 4 bulan lagi.",
+    choices: [
+      { lbl: "Dukung Audit BPK Penuh + Penyidikan KPK", hint: "+Integritas, +Pasar; −Presiden", tone: "pos", eff: { integritas: 5, kas: 18, presiden: -3, pasar: 2 } },
+      { lbl: "Audit Terbatas Inspektorat + Administrative Action", hint: "Kompromi; dampak terbatas", tone: "neutral", eff: { integritas: 1, presiden: -1, kas: 5 } },
+      { lbl: "Penundaan Audit (Pasca-Pemilu)", hint: "+Presiden; −Integritas signifikan", tone: "neg", eff: { presiden: 3, integritas: -5, pasar: -1 } },
+      { lbl: "Penanganan Internal + Recovery Perdata (Tanpa Pidana)", hint: "+Presiden; integritas tetap turun", tone: "neg", eff: { presiden: 2, integritas: -3, kas: 10, rakyat: -1 } },
+    ]},
 
-/* ---------- PROGRAM (jangka panjang) ---------- */
-const PROGRAMS = [
-  { id: "coretax", nm: "Coretax Modernisasi DJP", ds: "Sistem pajak digital terpadu. Saat 100%: +Rp 250 T penerimaan/q permanen.", totalCost: 480, perQ: 80, reward: { taxAdd: 250, ekonomi: 2 } },
-  { id: "onesid", nm: "Single ID Pajak", ds: "Satu identitas pajak semua sektor. Saat 100%: +Rp 80 T penerimaan/q.", totalCost: 280, perQ: 60, reward: { taxAdd: 80, integritas: 3 } },
-  { id: "cekbcur", nm: "Digitalisasi Bea Cukai", ds: "Sistem bea cukai terintegrasi. Saat 100%: +Rp 90 T penerimaan/q, +5 Integritas.", totalCost: 320, perQ: 70, reward: { taxAdd: 90, integritas: 5 } },
-  { id: "bumn", nm: "Reformasi BUMN", ds: "Restrukturisasi BUMN. Saat 100%: +Rp 120 T dividen/q, +3 Pasar.", totalCost: 400, perQ: 80, reward: { dividen: 120, pasar: 3 } },
-  { id: "sdmkeu", nm: "Peningkatan SDM Kemenkeu", ds: "Pelatihan pegawai fiskal. Saat 100%: +3 Ekonomi, +3 Integritas, +1 DPR.", totalCost: 200, perQ: 50, reward: { ekonomi: 3, integritas: 3, dpr: 1 } },
-  { id: "devisa", nm: "Cadangan Devisa Strategis", ds: "Akumulasi cadangan devisa. Saat 100%: +USD 30 B cadangan, +3 Pasar.", totalCost: 240, perQ: 60, reward: { devisa: 30, pasar: 3 } },
-];
-
-/* ---------- ADVISORS ---------- */
-const ADVISORS = {
-  wakil: { nm: "Wakil Menkeu", em: "👨‍💼", tx: "" },
-  djpp: { nm: "Dirjen Pajak", em: "🧾", tx: "" },
-  djbc: { nm: "Dirjen Bea Cukai", em: "🚢", tx: "" },
-  djpk: { nm: "Dirjen Pengelolaan Pembiayaan", em: "📊", tx: "" },
-  setneg: { nm: "Sekretaris Negara", em: "🏛️", tx: "" },
-};
-
-/* ---------- EVENT LIBRARY ---------- */
-const EVENTS = [
-  // Pajak
-  { id: "wpkonglo", ttl: "Konglomerat Pindah Domisili Pajak", ds: "Mantan wajib pajak besar pindah ke Singapura. Potensi penerimaan turun Rp 40 T kuartal ini.", w: 3, adv: "djpp", advtx: "Kita bisa kejar lewat pemeriksaan, atau tawarkan tax amnesty kecil-kecilan.", choices: [
-    { lbl: "Periksa & kejar", hint: "+Integritas, +kas Rp 50 T, −3 Ekonomi", eff: { integritas: 3, kas: 50, ekonomi: -3 } },
-    { lbl: "Tax amnesty terbatas", hint: "+kas Rp 200 T, −2 Integritas, +1 Pasar", eff: { kas: 200, integritas: -2, pasar: 1 } },
-    { lbl: "Diam saja", hint: "−Rp 40 T penerimaan q ini, +0", eff: { taxCut: 40 } },
-  ]},
-  { id: "kpkbc", ttl: "Bocoran Data Wajib Pajak", ds: "Konglomerat bocor data ke publik. Banyak transaksi besar tak dilaporkan.", w: 3, adv: "djpp", advtx: "Kita bisa koreksi & kejar pajaknya, atau tutup mata biar tidak gelisah pasar.", choices: [
-    { lbl: "Periksa massal & kejar", hint: "+kas Rp 120 T, +3 Integritas, −2 Pasar", eff: { kas: 120, integritas: 3, pasar: -2 } },
-    { lbl: "Surat peringatan halus", hint: "+kas Rp 30 T, 0", eff: { kas: 30 } },
-    { lbl: "Abaikan", hint: "−2 Rakyat, −1 Integritas", eff: { rakyat: -2, integritas: -1 } },
-  ]},
-  { id: "ppndemo", ttl: "Demo UMKM Tuntut Keringanan PPN", ds: "Pelaku UMKM demo di depan kantor pajak, minta PPN diturunkan ke 10%.", w: 2, adv: "djpp", advtx: "PPN sumber penerimaan utama. Turunkan = kehilangan Rp 80 T/q.", choices: [
-    { lbl: "Tolak tegas", hint: "0 penerimaan, −3 Rakyat, +1 Pasar", eff: { rakyat: -3, pasar: 1 } },
-    { lbl: "Beri insentif khusus UMKM", hint: "−Rp 40 T penerimaan, +2 Rakyat, −1 Pasar", eff: { taxCut: 40, rakyat: 2, pasar: -1 } },
-    { lbl: "PPN Omzet ≤ Rp 4,8 M dibebaskan", hint: "−Rp 25 T penerimaan, +3 Rakyat", eff: { taxCut: 25, rakyat: 3 } },
-  ]},
-  // Subsidi & BBM
-  { id: "minyaknaik", ttl: "Harga Minyak Dunia Naik 30%", ds: "Mentari OPEC produksi turun, harga minyuk naik. Subsidi BBM membengkak.", w: 4, adv: "djpk", advtx: "Subsidi bakal tambah Rp 90 T. Bisa naikkan harga BBM atau tanggung.", choices: [
-    { lbl: "Naikkan harga BBM Rp 1.000/L", hint: "−Rp 100 T subsidi, +4 Inflasi, −5 Rakyat, +3 Pasar", eff: { subsidiCut: 100, inflasi: 4, rakyat: -5, pasar: 3 } },
-    { lbl: "Tanggung, subsidi naik", hint: "+Rp 90 T belanja, +1 Rakyat, −3 Pasar", eff: { subsidiAdd: 90, rakyat: 1, pasar: -3 } },
-    { lbl: "Campur: naik 50% + BLT", hint: "−Rp 50 T subsidi, −Rp 40 T BLT, +2 Inflasi, 0 Rakyat", eff: { subsidiCut: 50, kas: -40, inflasi: 2, rakyat: 0 } },
-  ]},
-  { id: "ramadhan", ttl: "Harga Pangan Meroket Bulan Ramadhan", ds: "Beras, daging, gula naik 15–25% menjelang Lebaran.", w: 2, adv: "setneg", advtx: "Operasi pasar bisa tekan harga, tapi habis stok.", choices: [
-    { lbl: "Operasi pasar massal", hint: "−Rp 50 T, −5 Inflasi, +4 Rakyat", eff: { kas: -50, inflasi: -5, rakyat: 4 } },
-    { lbl: "Impor beras darurat", hint: "+Rp 30 T belanja, −3 Inflasi, −2 Petani (DPR)", eff: { kas: -30, inflasi: -3, dpr: -2 } },
-    { lbl: "Biar pasar kerja", hint: "+3 Inflasi, −3 Rakyat", eff: { inflasi: 3, rakyat: -3 } },
-  ]},
-  // Korupsi
-  { id: "korbc", ttl: "Kasus Suap Petugas Bea Cukai", ds: "OTT KPK tangkap pejabat Bea Cukai terima suap Rp 80 M. Pejabat dari fraksi koalisi.", w: 3, adv: "djbc", advtx: "Bisa dukung penegakan, atau tutup kasus. Fraksi koalisi ngambek kalau didukung.", choices: [
-    { lbl: "Dukung KPK sepenuhnya", hint: "+kas Rp 80 T (sita), +5 Integritas, −4 DPR", eff: { kas: 80, integritas: 5, dpr: -4 } },
-    { lbl: "Diam saja", hint: "0, −1 Integritas", eff: { integritas: -1 } },
-    { lbl: "Tutup kasus (SP3)", hint: "+2 DPR, −5 Integritas, −3 Rakyat", eff: { dpr: 2, integritas: -5, rakyat: -3 } },
-  ]},
-  { id: "korproj", ttl: "Mark-up Proyek Kementerian", ds: "Inspektorat temukan mark-up proyek di kementerian teknis, Rp 120 T bocor.", w: 2, adv: "wakil", advtx: "Bisa kejar balik dana & pecat pejabat, atau tutup demi partai.", choices: [
-    { lbl: "Kejar balik & pecat", hint: "+kas Rp 120 T, +4 Integritas, −3 DPR", eff: { kas: 120, integritas: 4, dpr: -3 } },
-    { lbl: "Tegur saja", hint: "0, −1 Integritas", eff: { integritas: -1 } },
-    { lbl: "Tutup demi koalisi", hint: "+2 DPR, −4 Integritas, −2 Pasar", eff: { dpr: 2, integritas: -4, pasar: -2 } },
-  ]},
-  // DPR / Politik
-  { id: "ruupjk", ttl: "DPR Tolak RUU Pajak Progressif", ds: "Fraksi oposisi blok RUU naikkan tarif pajak orang kaya. Voting kuartal ini.", w: 3, adv: "setneg", advtx: "Bisa lobi fraksi koalisi, atau cabut & ganti dengan PP (peraturan pemerintah).", choices: [
-    { lbl: "Lobi intensif", hint: "−Rp 30 T (lobi), +2 DPR, RUU lolos: +Rp 60 T/q", eff: { kas: -30, dpr: 2, taxAdd: 60 } },
-    { lbl: "Terbitkan PP saja", hint: "+Rp 50 T/q, −5 DPR (diprotes)", eff: { taxAdd: 50, dpr: -5 } },
-    { lbl: "Tarik RUU", hint: "0, −2 Pasar", eff: { pasar: -2 } },
-  ]},
-  { id: "presprog", ttl: "Presiden Minta Anggaran Program Prestise", ds: "Presiden ingin Rp 200 T untuk proyek ibu kota baru / mega event.", w: 3, adv: "wakil", advtx: "Tidak beri = Presiden kecewa. Beri = kas turun & Pasar geli.", choices: [
-    { lbl: "Beri setengah, restructuring", hint: "−Rp 100 T, +2 Presiden, −1 Pasar", eff: { kas: -100, presiden: 2, pasar: -1 } },
-    { lbl: "Beri penuh", hint: "−Rp 200 T, +4 Presiden, −3 Pasar", eff: { kas: -200, presiden: 4, pasar: -3 } },
-    { lbl: "Tolak halus", hint: "+1 Pasar, −5 Presiden", eff: { pasar: 1, presiden: -5 } },
-  ]},
-  // Pasar & Eksternal
-  { id: "fedrate", ttl: "The Fed Naikkan Suku Bunga", ds: "Fed Funds Rate naik 50 bps. Capital outflow dari emerging markets.", w: 3, adv: "djpk", advtx: "Rupiah bakal melemah, SBN domestik ikut tekanan.", choices: [
-    { lbl: "Naikkan suku bunga (kerja BI)", hint: "−2 Ekonomi, +3 Pasar, +1 Inflasi", eff: { ekonomi: -2, pasar: 3, inflasi: 1 } },
-    { lbl: "Intervensi valas", hint: "−USD 8 B cadangan, +2 Pasar", eff: { devisa: -8, pasar: 2 } },
-    { lbl: "Biar pasar kerja", hint: "−3 Pasar, +2 Inflasi, −1 Ekonomi", eff: { pasar: -3, inflasi: 2, ekonomi: -1 } },
-  ]},
-  { id: "resesiTiongkok", ttl: "Ekonomi Tiongkok Melambat", ds: "Impor Tiongkok turun, ekspor batu bara & sawit tertekan.", w: 3, adv: "djbc", advtx: "Bea ekspor turun, royalti tambang turun.", choices: [
-    { lbl: "Insentifkan ekspor baru", hint: "−Rp 30 T, +2 Ekonomi, +1 Pasar", eff: { kas: -30, ekonomi: 2, pasar: 1 } },
-    { lbl: "Pindah pasar (India, Eropa)", hint: "+1 Ekonomi, +1 Pasar, −1 DPR (lobi lambat)", eff: { ekonomi: 1, pasar: 1, dpr: -1 } },
-    { lbl: "Diam, biar pulih sendiri", hint: "−3 Ekonomi, −1 Pasar", eff: { ekonomi: -3, pasar: -1 } },
-  ]},
-  { id: "ratingwarn", ttl: "Peringatan dari Moody's & Fitch", ds: "Lembaga rating warning: rasio utang/PDB mendekati 40%, outlook negative.", w: 3, adv: "djpk", advtx: "Bisa konsolidasi fiskal (tekan belanja), atau abaikan & terbitkan SBN.", choices: [
-    { lbl: "Konsolidasi: pangkas belanja", hint: "−Rp 80 T belanja, +4 Pasar, −3 DPR", eff: { belanjaCut: 80, pasar: 4, dpr: -3 } },
-    { lbl: "Lobi rating agency", hint: "−Rp 15 T, +1 Pasar", eff: { kas: -15, pasar: 1 } },
-    { lbl: "Abaikan, terbitkan SBN saja", hint: "+Rp 150 T kas, +Rp 150 T utang, −3 Pasar", eff: { kas: 150, utang: 150, pasar: -3 } },
-  ]},
-  { id: "kurslemah", ttl: "Rupiah Anjlok ke Rp 16.800/USD", ds: "Spekulasi tekan Rupiah. Harga impor naik, utang LN naik value.", w: 3, adv: "djpk", advtx: "Cadangan devisa masih aman. Bisa intervensi atau biarkan.", choices: [
-    { lbl: "Intervensi besar-besaran", hint: "−USD 12 B cadangan, +3 Pasar, −1 Inflasi", eff: { devisa: -12, pasar: 3, inflasi: -1 } },
-    { lbl: "Naikkan suku bunga", hint: "−2 Ekonomi, +2 Pasar, +1 Inflasi", eff: { ekonomi: -2, pasar: 2, inflasi: 1 } },
-    { lbl: "Biar mengambang", hint: "+3 Inflasi, −2 Pasar, −2 Ekonomi", eff: { inflasi: 3, pasar: -2, ekonomi: -2 } },
-  ]},
-  // Sosial
-  { id: "asnstrike", ttl: "Aksi Mogok ASN Tuntut Kenaikan Gaji", ds: "ASN menuntut gaji naik 10%, ancam mogok nasional.", w: 2, adv: "setneg", advtx: "Gaji ASN sudah porsi belanja terbesar. Naikkan = tekanan kas besar.", choices: [
-    { lbl: "Naikkan 8%", hint: "+Rp 100 T belanja/q, +3 Rakyat, −2 Pasar", eff: { belanjaCut: -100, rakyat: 3, pasar: -2 } },
-    { lbl: "Naikkan 4% + tunjangan", hint: "+Rp 50 T belanja/q, +1 Rakyat", eff: { belanjaCut: -50, rakyat: 1 } },
-    { lbl: "Tolak, alihkan ke BLT", hint: "−Rp 40 T BLT, −2 Rakyat (ASN), +1 Pasar", eff: { kas: -40, rakyat: -2, pasar: 1 } },
-  ]},
-  { id: "bencana", ttl: "Bencana Alam Butuh Dana Darurat", ds: "Banjir bandang di 3 provinsi, gempa di Sulawesi. Butuh Rp 80 T segera.", w: 3, adv: "setneg", advtx: "Realokasi anggaran atau tarik dana cadangan.", choices: [
-    { lbl: "Realokasi anggaran", hint: "−Rp 80 T dari pos lain, −2 DPR, +3 Rakyat", eff: { kas: -80, dpr: -2, rakyat: 3 } },
-    { lbl: "Tarik dana cadangan", hint: "−Rp 80 T, +3 Rakyat, +1 Pasar", eff: { kas: -80, rakyat: 3, pasar: 1 } },
-    { lbl: "Lambat, realokasi bertahap", hint: "−Rp 30 T, −3 Rakyat", eff: { kas: -30, rakyat: -3 } },
-  ]},
-  { id: "pemilu", ttl: "Tahun Pemilu: Tuntutan Anggaran Politik", ds: "KPU minta tambahan Rp 35 T, partai koalisi minta bantuan sosial ekstra.", w: 4, adv: "setneg", advtx: "Bisa beri (Presiden & DPR senang), atau tahan (Pasar senang).", choices: [
-    { lbl: "Beri penuh", hint: "−Rp 80 T, +4 DPR, +3 Presiden, −2 Pasar", eff: { kas: -80, dpr: 4, presiden: 3, pasar: -2 } },
-    { lbl: "Beri setengah", hint: "−Rp 40 T, +2 DPR, +1 Presiden", eff: { kas: -40, dpr: 2, presiden: 1 } },
-    { lbl: "Tahan, fokus fiskal", hint: "+2 Pasar, −3 DPR, −2 Presiden", eff: { pasar: 2, dpr: -3, presiden: -2 } },
-  ]},
-  // Penerimaan
-  { id: "dividenbumn", ttl: "BUMN Mintalah Dividen Khusus", ds: "Pertamina & BUMN lain profit besar. Bisa minta dividen tambahan.", w: 2, adv: "djpk", advtx: "Tarik dividen ekstra, tapi investasi BUMN tertunda.", choices: [
-    { lbl: "Tarik dividen ekstra", hint: "+kas Rp 90 T, −2 Ekonomi (BUMN kapok invest)", eff: { kas: 90, ekonomi: -2 } },
-    { lbl: "Tarik 50% saja", hint: "+kas Rp 45 T, −1 Ekonomi", eff: { kas: 45, ekonomi: -1 } },
-    { lbl: "Biarkan BUMN invest", hint: "+1 Ekonomi, +1 Pasar", eff: { ekonomi: 1, pasar: 1 } },
-  ]},
-  { id: "royaltinaik", ttl: "Harga Komoditas Tambang Naik", ds: "Nikel & batu bara naik, royalti & bea ekspor melonjak.", w: 2, adv: "djbc", advtx: "Berita bagus. Bisa realokasi surplus atau cadangkan.", choices: [
-    { lbl: "Cadangkan untuk bencana", hint: "+kas Rp 60 T, +2 Integritas, +1 Pasar", eff: { kas: 60, integritas: 2, pasar: 1 } },
-    { lbl: "Buat BLT ke daerah tambang", hint: "+kas Rp 30 T, +3 Rakyat", eff: { kas: 30, rakyat: 3 } },
-    { lbl: "Belanjakan untuk infrastruktur", hint: "+kas Rp 30 T, +2 Ekonomi, −1 DPR", eff: { kas: 30, ekonomi: 2, dpr: -1 } },
-  ]},
-  // Pasar keuangan
-  { id: "ihsganjlok", ttl: "IHSG Anjlok 5% Hari Ini", ds: "Investor asing jual besar, IHSG jatuh. Pasar gelisah.", w: 2, adv: "djpk", advtx: "Bisa perkuat kepercayaan via intervensi atau konferensi pers.", choices: [
-    { lbl: "Konferensi pers tenangkan pasar", hint: "+2 Pasar, +1 Rakyat", eff: { pasar: 2, rakyat: 1 } },
-    { lbl: "Beli saham BUMN (penyangga)", hint: "−Rp 40 T, +3 Pasar", eff: { kas: -40, pasar: 3 } },
-    { lbl: "Diam, biar pulih", hint: "−2 Pasar, −1 Rakyat", eff: { pasar: -2, rakyat: -1 } },
-  ]},
-  { id: "sbnoversub", ttl: "SBN Retail Oversubscribed", ds: "Penerbitan SBN retail 4× oversubscribe. Antusiasme investor tinggi.", w: 2, adv: "djpk", advtx: "Bisa manfaatkan momentum, terbitkan tambahan.", choices: [
-    { lbl: "Terbitkan tambahan Rp 100 T", hint: "+kas Rp 100 T, +utang Rp 100 T, +1 Pasar", eff: { kas: 100, utang: 100, pasar: 1 } },
-    { lbl: "Pertahankan jadwal", hint: "+2 Pasar, +1 Rakyat", eff: { pasar: 2, rakyat: 1 } },
-    { lbl: "Tolak tambahan, disiplin utang", hint: "+2 Pasar, +1 Integritas", eff: { pasar: 2, integritas: 1 } },
-  ]},
-  // Presiden
-  { id: "presbriefing", ttl: "Presiden Mau Briefing Ekstra", ds: "Presiden minta kamu ke Istana menjelaskan posisi fiskal.", w: 1, adv: "setneg", advtx: "Briefing mendalam menjaga kepercayaan, tapi makan waktu.", choices: [
-    { lbl: "Briefing penuh dengan data", hint: "+3 Presiden, +1 Pasar", eff: { presiden: 3, pasar: 1 } },
-    { lbl: "Briefing singkat", hint: "+1 Presiden", eff: { presiden: 1 } },
-  ]},
-  { id: "presfraksi", ttl: "Fraksi Koalisi Protes Defisit", ds: "Fraksi koalisi resah defisit > 3%, ancam tarik dukungan.", w: 2, adv: "setneg", advtx: "Bisa tekan defisit atau lobi persuasif.", choices: [
-    { lbl: "Konsolidasi: pangkas belanja", hint: "−Rp 60 T belanja, +3 DPR, +2 Pasar, −1 Rakyat", eff: { belanjaCut: 60, dpr: 3, pasar: 2, rakyat: -1 } },
-    { lbl: "Lobi persuasif", hint: "−Rp 15 T, +2 DPR", eff: { kas: -15, dpr: 2 } },
-    { lbl: "Abaikan", hint: "−3 DPR", eff: { dpr: -3 } },
-  ]},
-  // Inflasi
-  { id: "inflasipangan", ttl: "Inflasi Pangan Tinggi", ds: "Beras naik 18% bulan ini, inflasi tertimbang melonjak.", w: 2, adv: "setneg", advtx: "Operasi pasar atau impor darurat.", choices: [
-    { lbl: "Operasi pasar massal", hint: "−Rp 40 T, −4 Inflasi, +3 Rakyat", eff: { kas: -40, inflasi: -4, rakyat: 3 } },
-    { lbl: "Impor beras besar", hint: "−Rp 60 T, −5 Inflasi, −2 DPR", eff: { kas: -60, inflasi: -5, dpr: -2 } },
-    { lbl: "Biar pasar", hint: "+4 Inflasi, −3 Rakyat", eff: { inflasi: 4, rakyat: -3 } },
-  ]},
-  //Investasi
-  { id: "fdimasuk", ttl: "Investor Asing Tanya Tax Holiday", ds: "Investor manufaktur besar pertimbangkan pindah ke Indonesia, minta tax holiday 5 tahun.", w: 2, adv: "djpp", advtx: "Berarti kehilangan penerimaan, tapi dapat investasi & lapangan kerja.", choices: [
-    { lbl: "Beri tax holiday 5 tahun", hint: "−Rp 80 T penerimaan/q, +4 Ekonomi, +2 Pasar", eff: { taxCut: 80, ekonomi: 4, pasar: 2 } },
-    { lbl: "Beri 3 tahun + insentif", hint: "−Rp 40 T penerimaan/q, +2 Ekonomi, +1 Pasar", eff: { taxCut: 40, ekonomi: 2, pasar: 1 } },
-    { lbl: "Tolak", hint: "0, −1 Ekonomi, −2 Pasar", eff: { ekonomi: -1, pasar: -2 } },
-  ]},
-  { id: "umrkenaikan", ttl: "Kenaikan UMR Tekan Inflasi Inti", ds: "Provinsi-provinsi naikkan UMR 8–12%. Tekanan biaya produksi.", w: 2, adv: "setneg", advtx: "Bisa koordinasi pelan-pelan, atau biarkan.", choices: [
-    { lbl: "Koordinasi tahap 5%/tahun", hint: "+1 Ekonomi, +2 Rakyat, −1 Inflasi", eff: { ekonomi: 1, rakyat: 2, inflasi: -1 } },
-    { lbl: "Biarkan pasar kerja", hint: "+3 Inflasi, −2 Rakyat, +1 Ekonomi", eff: { inflasi: 3, rakyat: -2, ekonomi: 1 } },
-  ]},
-  // Program presiden
-  { id: "presprog_push", ttl: "Presiden Tekan Percepatan Program", ds: "Presiden menelepon minta percepatan salah satu program prioritas. Ancam reshuffle kalau lambat.", w: 3, adv: "setneg", advtx: "Pilih program untuk diakselerasi (gratis +1 tahap), atau tahan karena kas tipis.", choices: [
-    { lbl: "Akselerasi program pertama (gratis)", hint: "+1 tahap program presiden pertama, +3 Presiden", eff: { presiden: 3 }, ppBoost: 0 },
-    { lbl: "Akselerasi program kedua (gratis)", hint: "+1 tahap program presiden kedua, +3 Presiden", eff: { presiden: 3 }, ppBoost: 1 },
-    { lbl: "Tahan, kas tidak cukup", hint: "−2 Presiden, +1 Pasar", eff: { presiden: -2, pasar: 1 } },
-  ]},
-  { id: "presprog_review", ttl: "Sekretaris Kabinet Ingatkan Tenggat", ds: "Sekretaris kabinet kirim surat: program presiden mendekati batas waktu, butuh pendanaan segera.", w: 3, adv: "setneg", advtx: "Bisa minta dana tambahan dari kas, atau reshuffle alokasi.", choices: [
-    { lbl: "Alokasikan dana darurat Rp 60 T", hint: "−Rp 60 T kas, +1 tahap program termaksimal", eff: { kas: -60, presiden: 2 }, ppBoostAll: true },
-    { lbl: "Lobi presiden perpanjang tenggat", hint: "−Rp 15 T (lobi), +2 Presiden, tenggat +2 kuartal", eff: { kas: -15, presiden: 2 } },
-    { lbl: "Abaikan, fokus lain", hint: "−3 Presiden, −1 Pasar", eff: { presiden: -3, pasar: -1 } },
-  ]},
-  { id: "presprog_bantuan", ttl: "Presiden Minta Bantuan Sosial Ekstra", ds: "Presiden minta program MBG / BLT diperluas karena elektoral. Beban kas besar.", w: 3, adv: "wakil", advtx: "Bisa beri (Presiden & Rakyat senang), atau tahan (Pasar senang).", choices: [
-    { lbl: "Beri penuh Rp 120 T", hint: "−Rp 120 T, +4 Presiden, +5 Rakyat, −2 Pasar", eff: { kas: -120, presiden: 4, rakyat: 5, pasar: -2 } },
-    { lbl: "Beri setengah", hint: "−Rp 60 T, +2 Presiden, +2 Rakyat", eff: { kas: -60, presiden: 2, rakyat: 2 } },
-    { lbl: "Tolak halus", hint: "−3 Presiden, +2 Pasar", eff: { presiden: -3, pasar: 2 } },
-  ]},
+  // ============ TAHUN 5 — PENUTUPAN DAN WARISAN FISKAL ============
+  { year: 5, id: "y5q1", title: "Audit Kinerja APBN oleh BPK",
+    desc: "Badan Pemeriksa Keuangan (BPK) mempersiapkan audit kinerja APBN lima tahun secara menyeluruh untuk laporan akuntabilitas akhir periode pemerintahan. Opini BPK pada dua tahun terakhir adalah Wajar Dengan Pengecualian (WDP). Transparansi publik atas hasil audit akan memengaruhi persepsi terhadap tata kelola fiskal pemerintahan secara keseluruhan.",
+    choices: [
+      { lbl: "Minta Audit Penuh + Publikasi Laporan Transparan", hint: "+Integritas, +Pasar; −Presiden (exposure)", tone: "pos", eff: { integritas: 5, pasar: 2, presiden: -1, kas: -10 } },
+      { lbl: "Audit Terbatas + Publikasi Selektif", hint: "Kompromi; integritas moderat", tone: "neutral", eff: { integritas: 1, pasar: 1, presiden: 0 } },
+      { lbl: "Koordinasi Tertutup dengan BPK (Limitasi Publikasi)", hint: "+Presiden; −Integritas, −Pasar", tone: "neg", eff: { integritas: -4, presiden: 2, pasar: -2 } },
+      { lbl: "Audit Paralel oleh Auditor Swasta Internasional (Big Four)", hint: "+Kredibilitas; biaya audit tinggi", tone: "neutral", eff: { integritas: 2, pasar: 2, kas: -15, presiden: -1 } },
+    ]},
+  { year: 5, id: "y5q2", title: "Penyesuaian Tarif Pajak Penghasilan Badan",
+    desc: "Pertumbuhan ekonomi kuartal ketiga melambat menjadi 4,7%. Asosiasi Pengusaha Nasional mengusulkan pemotongan tarif Pajak Penghasilan (PPh) Badan dari 22% menjadi 20% guna menstimulasi investasi. Namun, penerimaan PPh Badan menyumbang 26% dari total penerimaan pajak, sehingga pemotongan tarif berpotensi menekan penerimaan negara pada akhir periode.",
+    choices: [
+      { lbl: "Pemotongan Tarif ke 20% (Stimulasi Investasi)", hint: "+Ekonomi, +Pasar; −Kas signifikan", tone: "neutral", eff: { kas: -55, ekonomi: 3, pasar: 2, rakyat: 1 } },
+      { lbl: "Tahan di 22% + Tax Holiday Sektor Prioritas", hint: "+Pasar selektif; penerimaan terjaga", tone: "neutral", eff: { pasar: 2, ekonomi: 1, kas: -10 } },
+      { lbl: "Kenaikan ke 25% (Target Rasio Pajak 11%)", hint: "+Kas; −Ekonomi, −Pasar", tone: "neg", eff: { kas: 55, ekonomi: -3, pasar: -2 } },
+      { lbl: "Restrukturisasi: 20% UMKM, 25% Korporasi Besar", hint: "Progresif; administrasi kompleks", tone: "pos", eff: { kas: 20, ekonomi: 2, rakyat: 1, pasar: 1 } },
+    ]},
+  { year: 5, id: "y5q3", title: "Prioritas Warisan Fiskal untuk Pengganti",
+    desc: "Sebagai tahun terakhir masa jabatan, prioritas kebijakan agregat untuk konsolidasi akhir akan menentukan warisan fiskal yang ditinggalkan kepada penerus. Pilihan kebijakan ini akan memengaruhi struktur APBN tahun-tahun berikutnya serta persepsi pasar terhadap kontinuitas kebijakan fiskal nasional.",
+    choices: [
+      { lbl: "Konsolidasi Fiskal (Turunkan Rasio Utang/PDB)", hint: "+Kas, +Pasar; −Rakyat, −Ekonomi", tone: "neutral", eff: { kas: 80, pasar: 3, rakyat: -2, ekonomi: -1 } },
+      { lbl: "Dorong Pertumbuhan Akhir (Stimulasi Belanja Modal)", hint: "+Ekonomi, +Rakyat; −Kas", tone: "pos", eff: { kas: -80, ekonomi: 5, rakyat: 2, pasar: -1 } },
+      { lbl: "Stabilisasi Sosial (Perkuat Perlindungan Sosial)", hint: "+Rakyat, +Presiden; −Kas", tone: "neutral", eff: { kas: -60, rakyat: 5, presiden: 3 } },
+      { lbl: "Reformasi Struktural Jangka Panjang (Revisi UU Keuangan Negara)", hint: "+Integritas kelembagaan; lambat", tone: "pos", eff: { integritas: 3, pasar: 2, presiden: -1, kas: -10 } },
+    ]},
+  { year: 5, id: "y5q4", title: "Laporan Akuntabilitas Akhir kepada Presiden",
+    desc: "Presiden meminta laporan akuntabilitas akhir periode lima tahun secara menyeluruh. Format dan substansi laporan akan menentukan warisan politik Menteri Keuangan serta posisi historis dalam historiografi pemerintahan. Pilihan format laporan memengaruhi persepsi publik dan kepercayaan institusional.",
+    choices: [
+      { lbl: "Laporan Jujur & Transparan (Akui Seluruh Tantangan)", hint: "+Integritas, +Rakyat; sedikit −Presiden", tone: "pos", eff: { integritas: 3, rakyat: 2, presiden: -1, pasar: 1 } },
+      { lbl: "Laporan Positif (Fokus Capaian, Downplay Tantangan)", hint: "+Presiden; sedikit −Integritas", tone: "neutral", eff: { presiden: 3, integritas: -1, pasar: 0 } },
+      { lbl: "Laporan Teknokratik (Data Kuantitatif + Proyeksi)", hint: "+Pasar, +Integritas; netral politik", tone: "pos", eff: { pasar: 2, integritas: 2, ekonomi: 1 } },
+      { lbl: "Laporan Naratif Strategis (Warisan + Rekomendasi)", hint: "+Presiden, +Rakyat; konsultatif", tone: "neutral", eff: { presiden: 2, rakyat: 2, integritas: 1 } },
+    ]},
 ];
 
 /* ---------- STATE ---------- */
 let state = null;
+const Q_PER_YEAR = 4;
 
 function defaultState() {
   return {
-    quarter: 0,
-    year: 1,
-    name: "",
-    gender: "",
-    difficulty: "normal",
-    background: null,
-    mandates: [],          // 3 mandat presiden aktif
-    mandateStatus: {},     // id -> {year, met, failed}
-    presidentPrograms: [], // program presiden yang dipilih (acak)
-    presidentProgramState: {}, // id -> {fundedQs: number, done: bool}
-    // core stats
-    kas: 480,         // Rp T
-    utang: 6500,      // Rp T
-    pdb: 21000,      // Rp T (nominal)
+    kas: 500,
     ekonomi: 55,
-    inflasi: 22,     // 0-100 (higher worse); 22 ≈ 3.5%
+    inflasi: 22,         // ≈ 3.7%
     rakyat: 50,
-    dpr: 50,
     presiden: 60,
     pasar: 55,
     integritas: 55,
-    devisa: 135,     // USD B
-    // budgets (per quarter)
-    baseTaxRevenue: 720,  // Rp T baseline
-    lastTaxRevenue: 720,
-    lastSubsidiBBM: 320,
-    lastSubsidi: 320,
-    lastBelanjaWajib: 0,
-    lastPenerimaan: 0,
-    lastDefisit: 0,
-    defisitPct: 2.5,
-    utangPct: 31,    // utang/pdb*100
-    // policy state
-    policyCount: {},
-    policyCountYear: {},  // reset tiap tahun, untuk mandat
-    policyCooldown: {},
-    programProgress: {},
-    programFunded: {},
-    presidentProgramFunded: {},
-    programs: PROGRAMS.map(p => ({ id: p.id, progress: 0 })),
-    // quarter state
-    currentEvent: null,
-    eventResolved: false,
-    actionsUsed: { policy: 0, lobby: 0, briefing: 0, audit: 0, valas: 0, sbn: 0 },
-    pendingEffects: [], // accumulate event/policy effects this quarter
-    log: [],
-    noNewDebt: true,
-    gameOver: false,
-    gameOverReason: "",
-    history: [],
+    year: 1,
+    qIdx: 0,             // index ke QUESTIONS array (global)
+    answers: [],
+    started: false,
+    finished: false,
+    endedReason: null,   // 'fired' / 'bankrupt' / 'crisis' / 'completed'
+    yearLogs: [],       // log tiap tahun (target tercapai/tidak)
   };
 }
 
-/* ---------- UTIL ---------- */
-function fmtRp(t) {
-  if (t === undefined || t === null || isNaN(t)) return "Rp 0";
-  return "Rp " + Math.round(t).toLocaleString("id-ID") + " T";
-}
-function fmtRpLong(t) {
-  if (t === undefined || t === null || isNaN(t)) return "Rp 0";
-  return "Rp " + Math.round(t).toLocaleString("id-ID") + " T";
-}
 function clamp(v, lo=0, hi=100) { return Math.max(lo, Math.min(hi, v)); }
-function pad2(n) { return n < 10 ? "0"+n : ""+n; }
 
-function logEntry(text, type="info") {
-  state.log.unshift({ t: `Q${state.quarter} Y${state.year}`, text, type });
-  if (state.log.length > 60) state.log.pop();
-}
-
-function showToast(title, body, type="info") {
-  const host = document.getElementById("toasts");
-  const div = document.createElement("div");
-  div.className = "toast " + (type==="pos"?"pos":type==="neg"?"neg":"");
-  div.innerHTML = `<div class="ti">${title}</div><div>${body}</div>`;
-  host.appendChild(div);
-  setTimeout(() => { div.style.opacity = "0"; div.style.transition = "opacity 0.3s"; setTimeout(() => div.remove(), 300); }, 3500);
-}
-
-/* ---------- DIFFICULTY ---------- */
-function applyDifficulty() {
-  const d = state.difficulty;
-  if (d === "santai") {
-    state.kas = 620; state.utang = 5800;
-    state.ekonomi = 60; state.inflasi = 18;
-    state.pasar = 62; state.presiden = 65;
-  } else if (d === "susah") {
-    state.kas = 360; state.utang = 7400;
-    state.ekonomi = 48; state.inflasi = 28;
-    state.pasar = 45; state.presiden = 52;
-    state.devisa = 110;
-  }
-}
-
-/* ---------- BACKGROUND ---------- */
-function applyBackground() {
-  const bg = state.background;
-  if (bg === "djp") { state.baseTaxRevenue += 80; state.dpr -= 4; }
-  else if (bg === "bank") { state.pasar += 8; state.rakyat -= 3; state.kas += 40; }
-  else if (bg === "akad") { state.ekonomi += 6; state.dpr -= 5; }
-  else if (bg === "imf") { state.pasar += 8; state.utang += 200; state.rakyat -= 5; }
-  else if (bg === "usaha") { state.ekonomi += 6; state.integritas -= 8; }
-}
-
-/* ---------- EVENT PICKER ---------- */
-function pickEvent() {
-  // weighted random, avoid repeating last few
-  const recent = state.history.slice(-4).map(h => h.eventId);
-  const pool = EVENTS.filter(e => !recent.includes(e.id));
-  const candidates = pool.length ? pool : EVENTS;
-  // weight by year too
-  let total = 0;
-  const weighted = candidates.map(e => { const w = e.w || 1; total += w; return { e, w }; });
-  let r = Math.random() * total;
-  for (const { e, w } of weighted) { r -= w; if (r <= 0) return e; }
-  return candidates[0];
-}
-
-/* ---------- APPLY EFFECT ---------- */
 function applyEffect(eff) {
-  if (!eff) return;
-  const summary = [];
+  const deltas = [];
   for (const k in eff) {
     const v = eff[k];
     switch (k) {
-      case "kas": state.kas += v; summary.push((v>=0?"+":"")+fmtRpLong(v)+" kas"); break;
-      case "utang": state.utang += v; if (v > 0) state.noNewDebt = false; summary.push((v>=0?"+":"")+fmtRpLong(v)+" utang"); break;
-      case "ekonomi": state.ekonomi = clamp(state.ekonomi + v); summary.push((v>=0?"+":"")+v+" Ekonomi"); break;
-      case "inflasi": state.inflasi = clamp(state.inflasi + v); summary.push((v>=0?"+":"")+v+" Inflasi"); break;
-      case "rakyat": state.rakyat = clamp(state.rakyat + v); summary.push((v>=0?"+":"")+v+" Rakyat"); break;
-      case "dpr": state.dpr = clamp(state.dpr + v); summary.push((v>=0?"+":"")+v+" DPR"); break;
-      case "presiden": state.presiden = clamp(state.presiden + v); summary.push((v>=0?"+":"")+v+" Presiden"); break;
-      case "pasar": state.pasar = clamp(state.pasar + v); summary.push((v>=0?"+":"")+v+" Pasar"); break;
-      case "integritas": state.integritas = clamp(state.integritas + v); summary.push((v>=0?"+":"")+v+" Integritas"); break;
-      case "devisa": state.devisa += v; summary.push((v>=0?"+":"")+v+" USD B cadangan"); break;
-      case "taxAdd": state.baseTaxRevenue += v; summary.push((v>=0?"+":"")+fmtRpLong(v)+" penerimaan pajak/q"); break;
-      case "taxCut": state.baseTaxRevenue -= v; summary.push((v>=0?"+":"-")+fmtRpLong(Math.abs(v))+" penerimaan pajak/q"); break;
-      case "subsidiCut": state.lastSubsidiBBM = Math.max(0, state.lastSubsidiBBM - v); summary.push("−"+fmtRpLong(v)+" belanja subsidi/q"); break;
-      case "subsidiAdd": state.lastSubsidiBBM += v; summary.push("+"+fmtRpLong(v)+" belanja subsidi/q"); break;
-      case "belanjaCut": state.lastBelanjaWajib = Math.max(0, state.lastBelanjaWajib - v); summary.push("−"+fmtRpLong(Math.abs(v))+" belanja wajib/q"); break;
-      case "bungaCut": state.bungaCut = (state.bungaCut||0) + v; summary.push("−"+fmtRpLong(v)+" belanja bunga/q"); break;
+      case "kas": state.kas += v; deltas.push({ key: "kas", v }); break;
+      case "ekonomi": state.ekonomi = clamp(state.ekonomi + v); deltas.push({ key: "ekonomi", v }); break;
+      case "inflasi": state.inflasi = clamp(state.inflasi + v); deltas.push({ key: "inflasi", v }); break;
+      case "rakyat": state.rakyat = clamp(state.rakyat + v); deltas.push({ key: "rakyat", v }); break;
+      case "presiden": state.presiden = clamp(state.presiden + v); deltas.push({ key: "presiden", v }); break;
+      case "pasar": state.pasar = clamp(state.pasar + v); deltas.push({ key: "pasar", v }); break;
+      case "integritas": state.integritas = clamp(state.integritas + v); deltas.push({ key: "integritas", v }); break;
     }
   }
-  if (summary.length) logEntry(summary.join(", "), eff.kas && eff.kas > 0 ? "pos" : eff.kas && eff.kas < 0 ? "neg" : "info");
+  return deltas;
 }
 
-/* ---------- CALC BUDGET (per quarter) ---------- */
-function calcBudget() {
-  const ekonomiFactor = 0.5 + (state.ekonomi / 100); // 0.5–1.5
-  const inflasiFactor = 1 + (state.inflasi - 22) / 200; // mild adjustment
-  // Penerimaan
-  const taxRev = Math.round(state.baseTaxRevenue * ekonomiFactor * inflasiFactor);
-  const beaCukai = Math.round(140 * ekonomiFactor);
-  const migasMinerba = Math.round(110 * ekonomiFactor);
-  const dividenBUMN = Math.round(80 * ekonomiFactor);
-  const penerimaan = taxRev + beaCukai + migasMinerba + dividenBUMN;
-  // Belanja wajib
-  const gajiASN = 360;
-  const bungaUtang = Math.round((state.utang * 0.012) - (state.bungaCut||0)); // ~1.2% per quarter of utang
-  const subsidi = state.lastSubsidiBBM + 80; // pangan + energi lain
-  const transferDaerah = 220;
-  const pertahanan = 90;
-  const belanjaWajib = gajiASN + bungaUtang + subsidi + transferDaerah + pertahanan;
-  // Defisit & surplus
-  const defisit = belanjaWajib - penerimaan;
-  const defisitPct = (defisit / state.pdb) * 100;
-  const utangPct = (state.utang / state.pdb) * 100;
-  return { taxRev, beaCukai, migasMinerba, dividenBUMN, penerimaan, gajiASN, bungaUtang, subsidi, transferDaerah, pertahanan, belanjaWajib, defisit, defisitPct, utangPct };
+function statClass(key) {
+  const v = state[key];
+  if (key === "kas") return v < 100 ? "bad" : v > 500 ? "good" : "";
+  if (key === "inflasi") return v > 36 ? "bad" : v < 18 ? "good" : "";
+  if (v >= 65) return "good";
+  if (v <= 25) return "bad";
+  return "";
 }
 
-/* ---------- ADVANCE QUARTER ---------- */
-function advanceQuarter() {
-  // Apply accumulated effects already in state via pendingEffects (already applied when chosen)
-  // Process programs: each funded program gets +progress
-  for (const prog of state.programs) {
-    if (state.programFunded[prog.id]) {
-      const def = PROGRAMS.find(p => p.id === prog.id);
-      prog.progress = Math.min(100, prog.progress + 25);
-      if (prog.progress >= 100 && !state.programFunded[prog.id+"_done"]) {
-        state.programFunded[prog.id+"_done"] = true;
-        applyEffect(def.reward);
-        showToast("✅ Program Selesai", def.nm+" tuntas! Reward permanen aktif.", "pos");
-      }
-      state.programFunded[prog.id] = false; // reset funding for next quarter
-    }
-  }
-  // Process president programs: each funded program gets +1 tahap
-  if (state.presidentProgramFunded) {
-    state.presidentPrograms.forEach(pp => {
-      if (state.presidentProgramFunded[pp.id]) {
-        const stt = state.presidentProgramState[pp.id];
-        if (stt && !stt.done) {
-          stt.fundedQs += 1;
-          if (stt.fundedQs >= pp.totalNeed) {
-            stt.done = true;
-            applyEffect(pp.reward);
-            showToast("🏛️ Program Presiden Tuntas", pp.nm+" selesai! Presiden senang.", "pos");
-            state.presiden = clamp(state.presiden + 5);
-          }
-          state.presidentProgramFunded[pp.id] = false;
-        }
-      }
-    });
-  }
-  // Calc budget
-  const b = calcBudget();
-  state.lastTaxRevenue = b.taxRev;
-  state.lastSubsidi = b.subsidi;
-  state.lastBelanjaWajib = b.belanjaWajib;
-  state.lastPenerimaan = b.penerimaan;
-  state.lastDefisit = b.defisit;
-  state.defisitPct = b.defisitPct;
-  state.utangPct = b.utangPct;
-  // Apply budget to kas & utang
-  state.kas += b.penerimaan - b.belanjaWajib;
-  if (b.defisit > 0) {
-    state.utang += b.defisit;
-    state.noNewDebt = false;
-  }
-  // decay: stat decay toward baseline
-  state.rakyat = clamp(state.rakyat - 1);
-  state.dpr = clamp(state.dpr - 1);
-  state.pasar = clamp(state.pasar - 1);
-  state.presiden = clamp(state.presiden - 1);
-  // inflasi drifts toward 22
-  if (state.inflasi > 22) state.inflasi = clamp(state.inflasi - 1);
-  else if (state.inflasi < 22) state.inflasi = clamp(state.inflasi + 1);
-  // ekonomi drifts toward 50
-  if (state.ekonomi > 55) state.ekonomi = clamp(state.ekonomi - 0.5);
-  else if (state.ekonomi < 50) state.ekonomi = clamp(state.ekonomi + 0.5);
-  // reduce cooldowns
-  for (const k in state.policyCooldown) {
-    if (state.policyCooldown[k] > 0) state.policyCooldown[k] -= 1;
-  }
-  // log
-  logEntry(`Kuartal tutup: penerimaan ${fmtRpLong(b.penerimaan)}, belanja ${fmtRpLong(b.belanjaWajib)}, defisit ${fmtRpLong(b.defisit)}`, b.defisit > 0 ? "neg" : "pos");
-  // Review Presiden tahunan: dipanggil di akhir setiap tahun (Q4 = quarter % 4 == 0)
-  if (state.quarter % 4 === 0 && state.quarter <= 20) {
-    reviewPresidenTahunan();
-  }
-  // Advance time
-  state.history.push({ quarter: state.quarter, eventId: state.currentEvent ? state.currentEvent.id : null });
-  const prevYear = state.year;
-  state.quarter += 1;
-  if (state.quarter % 4 === 1 && state.quarter > 1) state.year += 1;
-  // Inisialisasi mandat year baru kalau masuk tahun baru
-  if (state.year > prevYear && !state.gameOver) initMandateYear();
-  // Check game over
-  if (checkGameOver()) { render(); return; }
-  // Check pemilu (year 5 / quarter 16-19 -> warning)
-  state.currentEvent = pickEvent();
-  state.eventResolved = false;
-  state.actionsUsed = { policy: 0, lobby: 0, briefing: 0, audit: 0, valas: 0, sbn: 0 };
-  state.pendingEffects = [];
-  state.programFunded = {};
-  state.presidentProgramFunded = {};
-  // Advisor hint
-  state.advisorLine = state.currentEvent.adv ? ADVISORS[state.currentEvent.adv] : null;
-  render();
+function fmtStat(key) {
+  const m = STAT_META.find(s => s.key === key);
+  return m.fmt(state[key]);
 }
 
-/* ---------- GAME OVER CHECK ---------- */
-function checkGameOver() {
-  if (state.kas <= 0) { endGame("Negara Bangkrut — Kas habis, default SBN terjadi."); return true; }
-  if (state.ekonomi <= 8) { endGame("Resesi Parah — Ekonomi kolaps, kamu dipecat."); return true; }
-  if (state.rakyat <= 8) { endGame("Demo Besar — Rakyat turun ke jalan, kamu mundur."); return true; }
-  if (state.presiden <= 8) { endGame("Dipecat Presiden — Kepercayaan Presiden habis."); return true; }
-  if (state.pasar <= 8) { endGame("Krisis Kepercayaan — Rating junk, investor kabur."); return true; }
-  if (state.inflasi >= 96) { endGame("Hyperinflasi — Harga tak terkendali."); return true; }
-  if (state.utangPct >= 100) { endGame("Krisis Utang — Rasio utang/PDB melewati 100%."); return true; }
-  if (state.quarter >= 20) { endGame("Selesai — 5 tahun masa jabatan tuntas."); return true; }
+function checkTarget(t) {
+  const v = state[t.key];
+  if (t.op === ">=") return v >= t.req;
+  if (t.op === "<=") return v <= t.req;
   return false;
 }
 
-function endGame(reason) {
-  state.gameOver = true;
-  state.gameOverReason = reason;
-  logEntry("Permainan berakhir: " + reason, "neg");
-}
-
-/* ---------- ACTIONS ---------- */
-function usePolicy(pid) {
-  const p = POLICIES.find(x => x.id === pid);
-  if (!p) return;
-  if (state.actionsUsed.policy >= 1) { showToast("Batas tercapai", "Hanya 1 kebijakan per kuartal.", "neg"); return; }
-  if (p.once && state.policyCount[pid]) { showToast("Sudah dipakai", p.nm+" hanya bisa sekali.", "neg"); return; }
-  if (state.policyCooldown[pid] > 0) { showToast("Cooldown", p.nm+" butuh "+state.policyCooldown[pid]+" kuartal lagi.", "neg"); return; }
-  // apply
-  state.actionsUsed.policy += 1;
-  state.policyCount[pid] = (state.policyCount[pid]||0) + 1;
-  state.policyCountYear[pid] = (state.policyCountYear[pid]||0) + 1;
-  state.policyCooldown[pid] = p.cd || 0;
-  // cost
-  if (p.cost) state.kas -= p.cost;
-  applyEffect(p.eff);
-  if (p.once) state.policyCooldown[pid] = 999; // permanent
-  showToast("📋 Kebijakan Ditetapkan", p.nm, "pos");
-  render();
-}
-
-function useProgram(pid) {
-  const prog = state.programs.find(p => p.id === pid);
-  const def = PROGRAMS.find(p => p.id === pid);
-  if (!prog || !def) return;
-  if (prog.progress >= 100) { showToast("Sudah tuntas", def.nm+" 100%.", "neg"); return; }
-  if (state.programFunded[pid]) { showToast("Sudah didanai", "Sudah dijadwalkan kuartal ini.", "neg"); return; }
-  if (state.kas < def.perQ) { showToast("Kas kurang", "Butuh "+fmtRpLong(def.perQ), "neg"); return; }
-  state.kas -= def.perQ;
-  state.programFunded[pid] = true;
-  showToast("🏗️ Program Didanai", def.nm+" +25% kuartal ini.", "pos");
-  render();
-}
-
-/* ---------- PROGRAM PRESIDEN ----------
-   Program prioritas yang ditugaskan presiden. Danai tiap kuartal sampai
-   mencapai totalNeed pembayaran. Reward permanen saat tuntas. */
-function usePresidentProgram(pid) {
-  const pp = state.presidentPrograms.find(p => p.id === pid);
-  if (!pp) return;
-  const stt = state.presidentProgramState[pid];
-  if (!stt || stt.done) { showToast("Sudah selesai", pp.nm+" sudah selesai.", "neg"); return; }
-  if (state.presidentProgramFunded && state.presidentProgramFunded[pid]) { showToast("Sudah didanai", "Sudah dijadwalkan kuartal ini.", "neg"); return; }
-  if (state.kas < pp.perQ) { showToast("Kas kurang", "Butuh "+fmtRpLong(pp.perQ), "neg"); return; }
-  state.kas -= pp.perQ;
-  if (!state.presidentProgramFunded) state.presidentProgramFunded = {};
-  state.presidentProgramFunded[pid] = true;
-  showToast("🏛️ Program Presiden Didanai", pp.nm+" +1 tahap kuartal ini.", "pos");
-  render();
-}
-
-function useLobby() {
-  if (state.actionsUsed.lobby >= 1) { showToast("Batas", "Sudah lobi kuartal ini.", "neg"); return; }
-  if (state.kas < 30) { showToast("Kas kurang", "Lobi butuh Rp 30 T.", "neg"); return; }
-  state.actionsUsed.lobby += 1;
-  state.kas -= 30;
-  state.dpr = clamp(state.dpr + 10);
-  state.presiden = clamp(state.presiden + 1);
-  logEntry("Lobi DPR: +10 DPR, +1 Presiden, −Rp 30 T", "pos");
-  showToast("🤝 Lobi DPR", "+10 DPR, +1 Presiden", "pos");
-  render();
-}
-
-function useBriefing() {
-  if (state.actionsUsed.briefing >= 1) { showToast("Batas", "Sudah briefing kuartal ini.", "neg"); return; }
-  state.actionsUsed.briefing += 1;
-  state.presiden = clamp(state.presiden + 8);
-  state.pasar = clamp(state.pasar + 1);
-  logEntry("Briefing Presiden: +8 Presiden, +1 Pasar", "pos");
-  showToast("🏛️ Briefing Presiden", "+8 Presiden, +1 Pasar", "pos");
-  render();
-}
-
-function useAudit() {
-  if (state.actionsUsed.audit >= 1) { showToast("Batas", "Sudah audit kuartal ini.", "neg"); return; }
-  if (state.kas < 15) { showToast("Kas kurang", "Audit butuh Rp 15 T.", "neg"); return; }
-  state.actionsUsed.audit += 1;
-  state.kas -= 15;
-  state.integritas = clamp(state.integritas + 6);
-  state.pasar = clamp(state.pasar + 2);
-  logEntry("Audit APBN: +6 Integritas, +2 Pasar", "pos");
-  showToast("🧼 Audit APBN", "+6 Integritas, +2 Pasar", "pos");
-  render();
-}
-
-function resolveChoice(idx) {
-  if (!state.currentEvent || state.eventResolved) return;
-  const ch = state.currentEvent.choices[idx];
-  applyEffect(ch.eff || {});
-  // Handle special president program boosts
-  if (ch.ppBoost !== undefined && state.presidentPrograms[ch.ppBoost]) {
-    const pp = state.presidentPrograms[ch.ppBoost];
-    const stt = state.presidentProgramState[pp.id];
-    if (stt && !stt.done) {
-      stt.fundedQs += 1;
-      if (stt.fundedQs >= pp.totalNeed) {
-        stt.done = true;
-        applyEffect(pp.reward);
-        showToast("🏛️ Program Presiden Tuntas", pp.nm+" selesai via akselerasi presiden!", "pos");
-        state.presiden = clamp(state.presiden + 5);
-      } else {
-        showToast("🏛️ Akselerasi Program", pp.nm+" +1 tahap.", "pos");
-      }
-    }
+/* ---------- IMMEDIATE FAIL CHECK ---------- */
+function checkImmediateFail() {
+  if (state.kas <= 0) {
+    state.endedReason = "bankrupt";
+    return true;
   }
-  if (ch.ppBoostAll) {
-    // fund the president program that is closest to its deadline & not done
-    const candidates = state.presidentPrograms
-      .map(pp => ({ pp, stt: state.presidentProgramState[pp.id] }))
-      .filter(({stt}) => stt && !stt.done)
-      .sort((a,b) => (a.pp.targetQuarter - state.quarter) - (b.pp.targetQuarter - state.quarter));
-    if (candidates.length) {
-      const { pp, stt } = candidates[0];
-      stt.fundedQs += 1;
-      if (stt.fundedQs >= pp.totalNeed) {
-        stt.done = true;
-        applyEffect(pp.reward);
-        showToast("🏛️ Program Tuntas", pp.nm+" selesai via dana darurat!", "pos");
-      } else {
-        showToast("🏛️ Dana Darurat", pp.nm+" +1 tahap.", "pos");
-      }
-    }
+  if (state.presiden <= 10) {
+    state.endedReason = "fired";
+    return true;
   }
-  state.eventResolved = true;
-  showToast("✓ Keputusan: " + ch.lbl, "Efek diterapkan.", "pos");
-  render();
+  if (state.integritas <= 10) {
+    state.endedReason = "kpk";
+    return true;
+  }
+  return false;
 }
 
-/* ---------- RENDER ---------- */
+/* ---------- RENDER ROUTER ---------- */
 function render() {
   const app = document.getElementById("app");
   app.innerHTML = "";
-  if (!state) { renderSetup(app); return; }
-  if (state.gameOver) { renderGameOver(app); return; }
-  renderTopbar(app);
-  const stage = document.createElement("div");
-  stage.className = "stage";
-  const main = document.createElement("div");
-  main.className = "main";
-  renderMain(main);
-  const side = document.createElement("div");
-  side.className = "side";
-  renderSide(side);
-  stage.appendChild(main);
-  stage.appendChild(side);
-  app.appendChild(stage);
+  if (!state || !state.started) {
+    renderIntro(app);
+  } else if (state.finished) {
+    renderEnding(app);
+  } else if (state.showYearReview) {
+    renderYearReview(app);
+  } else if (state.showYearIntro) {
+    renderYearIntro(app);
+  } else {
+    renderQuestion(app);
+  }
 }
 
-/* ---------- SETUP SCREEN ---------- */
-function renderSetup(app) {
-  const setupState = window._setup = window._setup || { name: "", gender: "", difficulty: "normal", background: null };
+/* ---------- INTRO ---------- */
+function renderIntro(app) {
   const div = document.createElement("div");
-  div.className = "setup card";
+  div.className = "intro";
   div.innerHTML = `
-    <h1>💰 Menkeu RI</h1>
-    <div class="sub">Simulasi 5 tahun memimpin kas negara. Setiap rupiah punya harga.</div>
-    <div class="disclaimer-box">
-      <div class="disclaimer-title">📢 Disclaimer</div>
-      <div class="disclaimer-body">
-        Game ini <b>100% fiksi</b> dan dibuat <b>hanya untuk hiburan dan tujuan edukasi</b>. Semua tokoh, partai, lembaga, kasus, angka, dan kejadian di sini adalah <b>rekaan</b>. Kemiripan dengan tokoh, institusi, atau peristiwa nyata adalah kebetulan belaka.
+    <div class="crest-big">💰</div>
+    <h1>Menkeu RI</h1>
+    <div class="sub">5 Tahun Membantu Presiden — Bertahan atau Dipecat</div>
+    ${DISCLAIMER}
+    <div style="background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin-bottom:18px; text-align:left;">
+      <div style="color:var(--gold); font-size:13px; font-weight:700; margin-bottom:8px;">📋 Cara Main</div>
+      <div style="color:var(--muted); font-size:13px; line-height:1.65;">
+        Kamu adalah <b style="color:var(--text)">Menteri Keuangan RI</b>, pembantu presiden. Tujuanmu: <b style="color:var(--text)">bertahan 5 tahun</b> sampai akhir periode jabatan presiden.
         <br><br>
-        Game ini <b>bukan opini politik</b>, bukan ramalan, dan <b>bukan saran kebijakan</b>. Tujuan utamanya adalah membantu pemain memahami dinamika pengelolaan keuangan negara (APBN, pajak, subsidi, utang, rating) secara interaktif dan menyenangkan.
+        Setiap tahun, presiden memberi <b style="color:var(--pres)">3–4 target ekonomi & pembangunan</b> yang harus kamu penuhi. Setiap tahun ada <b style="color:var(--gold)">4 pertanyaan keputusan fiskal</b> — setelah dijawab, otomatis lanjut ke pertanyaan berikutnya.
+        <br><br>
+        Di akhir tiap tahun, presiden mengevaluasi. Kalau target banyak miss, atau presiden/kepercayaan/integritas/kas anjlok, kamu bisa dipecat lebih awal.
+        <br><br>
+        <b style="color:var(--gold)">Pemenang: berhasil bertahan sampai akhir tahun ke-5.</b>
+      </div>
+    </div>
+    <button class="cta" id="start-btn">Mulai 5 Tahun →</button>
+  `;
+  app.appendChild(div);
+  div.querySelector("#start-btn").addEventListener("click", () => {
+    state = defaultState();
+    state.started = true;
+    state.showYearIntro = true;
+    render();
+  });
+}
+
+/* ---------- YEAR INTRO ---------- */
+function renderYearIntro(app) {
+  const y = YEARS[state.year - 1];
+  const div = document.createElement("div");
+  div.className = "year-intro";
+  div.innerHTML = `
+    <div class="yr-num">TAHUN ${state.year} DARI 5</div>
+    <h1>${y.tagline.split("—")[1] ? y.tagline.split("—")[1].trim() : y.tagline}</h1>
+    <div class="yr-tagline">${y.tagline.split("—")[0].trim()}</div>
+
+    <div class="president-msg">
+      <div class="who">👔 PESAN PRESIDEN</div>
+      <div class="msg">${y.presMsg}</div>
+    </div>
+
+    <div class="year-targets-card">
+      <h3>🎯 Target Presiden Tahun ${state.year}</h3>
+      ${y.targets.map(t => `<div class="yt-row">
+        <span class="yt-k">${t.label}</span>
+        <span class="yt-v">Saat ini: ${fmtStat(t.key)}</span>
+      </div>`).join("")}
+    </div>
+
+    <button class="cta" id="yr-start">Mulai Tahun ${state.year} →</button>
+  `;
+  app.appendChild(div);
+  div.querySelector("#yr-start").addEventListener("click", () => {
+    state.showYearIntro = false;
+    render();
+  });
+}
+
+/* ---------- HUD ---------- */
+function renderHUD(app) {
+  const totalQ = YEARS.length * Q_PER_YEAR;
+  const pct = (state.qIdx / totalQ) * 100;
+  const y = YEARS[state.year - 1];
+  const hud = document.createElement("div");
+  hud.className = "hud";
+  hud.innerHTML = `
+    <div class="hud-top">
+      <span class="hud-year">🗓️ Tahun ${state.year}/5</span>
+      <span class="hud-q-count">Pertanyaan ${state.qIdx % Q_PER_YEAR + 1}/${Q_PER_YEAR} · Global ${state.qIdx + 1}/${totalQ}</span>
+    </div>
+    <div class="hud-progress"><div style="width:${pct}%"></div></div>
+    <div class="hud-stats">
+      ${STAT_META.map(s => `<div class="stat ${statClass(s.key)}" data-stat="${s.key}">
+        <span class="lbl">${s.ico} ${s.lbl}</span>
+        <span class="val">${fmtStat(s.key)}</span>
+      </div>`).join("")}
+    </div>
+    <div class="targets-panel" style="margin-top:10px;">
+      <div class="targets-title">🎯 Target Presiden Tahun ${state.year}</div>
+      <div class="targets-grid">
+        ${y.targets.map(t => {
+          const met = checkTarget(t);
+          return `<div class="target ${met ? 'met' : 'miss'}">
+            <span class="t-lbl">${t.label}</span>
+            <span class="t-row">
+              <span class="t-current">${fmtStat(t.key)}</span>
+              <span class="t-check">${met ? '✅' : '⬜'}</span>
+            </span>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+  app.appendChild(hud);
+}
+
+/* ---------- QUESTION ---------- */
+function renderQuestion(app) {
+  renderHUD(app);
+  const q = QUESTIONS[state.qIdx];
+  if (!q) { finishGame(); return; }
+  const card = document.createElement("div");
+  card.className = "q-card";
+  card.innerHTML = `
+    <div class="q-num">TAHUN ${q.year} · PERTANYAAN ${(state.qIdx % Q_PER_YEAR) + 1} dari ${Q_PER_YEAR}</div>
+    <div class="q-tag">${YEARS[q.year-1].tagline}</div>
+    <div class="q-title">${q.title}</div>
+    <div class="q-desc">${q.desc}</div>
+    <div class="choices">
+      ${q.choices.map((c, i) => `<button class="choice" data-choice="${i}">
+        <span class="lbl">${c.lbl}</span>
+        <span class="hint">💡 ${c.hint}</span>
+      </button>`).join("")}
+    </div>
+    <div id="feedback-zone"></div>
+  `;
+  app.appendChild(card);
+  card.querySelectorAll(".choice").forEach(btn => {
+    btn.addEventListener("click", () => handleAnswer(parseInt(btn.dataset.choice)));
+  });
+}
+
+/* ---------- HANDLE ANSWER (auto-advance) ---------- */
+function handleAnswer(choiceIdx) {
+  const q = QUESTIONS[state.qIdx];
+  const c = q.choices[choiceIdx];
+  document.querySelectorAll(".choice").forEach((b, i) => {
+    b.disabled = true;
+    if (i === choiceIdx) b.classList.add("picked-" + c.tone);
+  });
+  const deltas = applyEffect(c.eff);
+  state.answers.push({ qId: q.id, year: q.year, choiceIdx, tone: c.tone, effects: c.eff });
+
+  const fz = document.getElementById("feedback-zone");
+  if (fz) {
+    const fxList = deltas.length
+      ? deltas.map(d => {
+          const sign = d.v > 0 ? "+" : "";
+          const cls = d.v > 0 ? "pos" : (d.v < 0 ? "neg" : "");
+          const lbl = STAT_META.find(s => s.key === d.key);
+          const valStr = d.key === "kas" ? sign + Math.round(d.v) + " T" : sign + Math.round(d.v);
+          return `<span class="${cls}">${lbl.ico} ${lbl.lbl} ${valStr}</span>`;
+        }).join(" · ")
+      : "<span>Tidak ada perubahan</span>";
+    const toneClass = c.tone === "pos" ? "pos" : c.tone === "neg" ? "neg" : "info";
+    const toneLabel = c.tone === "pos" ? "✓ Keputusan Tegas" : c.tone === "neg" ? "⚠ Keputusan Berisiko" : "→ Keputusan Netral";
+    fz.innerHTML = `<div class="feedback ${toneClass}">
+      <b>${toneLabel}.</b> Efek: <span class="fx-list">${fxList}</span>
+      <div class="next-hint">Melanjutkan ke pertanyaan berikutnya…</div>
+    </div>`;
+  }
+
+  // flash stats
+  deltas.forEach(d => {
+    const el = document.querySelector(`[data-stat="${d.key}"]`);
+    if (el) { el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 600); }
+  });
+  // update HUD values & targets
+  updateHUDLive();
+
+  // auto-advance
+  setTimeout(() => {
+    state.qIdx += 1;
+    // Check if year ended (4 questions done for this year)
+    const questionsThisYearDone = (state.qIdx % Q_PER_YEAR) === 0;
+    if (checkImmediateFail()) {
+      state.finished = true;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    if (questionsThisYearDone) {
+      // Year review next
+      state.showYearReview = true;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, 1200);
+}
+
+function updateHUDLive() {
+  STAT_KEYS.forEach(k => {
+    const el = document.querySelector(`[data-stat="${k}"] .val`);
+    if (el) el.textContent = fmtStat(k);
+    const parent = document.querySelector(`[data-stat="${k}"]`);
+    if (parent) parent.className = "stat " + statClass(k);
+  });
+  // Update target checks
+  const y = YEARS[state.year - 1];
+  document.querySelectorAll(".targets-grid .target").forEach((el, i) => {
+    const t = y.targets[i];
+    if (!t) return;
+    const met = checkTarget(t);
+    el.className = "target " + (met ? "met" : "miss");
+    const cur = el.querySelector(".t-current");
+    if (cur) cur.textContent = fmtStat(t.key);
+    const chk = el.querySelector(".t-check");
+    if (chk) chk.textContent = met ? "✅" : "⬜";
+  });
+  // progress
+  const totalQ = YEARS.length * Q_PER_YEAR;
+  const bar = document.querySelector(".hud-progress > div");
+  if (bar) bar.style.width = (((state.qIdx + 1) / totalQ) * 100) + "%";
+}
+
+/* ---------- YEAR REVIEW ---------- */
+function renderYearReview(app) {
+  const y = YEARS[state.year - 1];
+  const results = y.targets.map(t => ({ t, met: checkTarget(t) }));
+  const metCount = results.filter(r => r.met).length;
+  const totalCount = results.length;
+  const allMet = metCount === totalCount;
+  const halfOrLess = metCount <= Math.floor(totalCount / 2);
+
+  // President reaction
+  let reaction;
+  if (allMet) {
+    reaction = "\"Kerja bagus. Semua target tahun ini tercapai. Saya mulai percaya Anda memang bisa diandalkan. Lanjutkan tahun depan.\"";
+  } else if (halfOrLess) {
+    reaction = "\"Hasil tahun ini mengecewakan. Banyak target miss. Saya mulai ragu dengan Anda. Tolong perbaiki tahun depan — ingat, saya bisa reshuffle kapan saja.\"";
+  } else {
+    reaction = "\"Cukup baik, sebagian target tercapai. Tahun depan harus lebih baik. Jangan lupakan target yang belum tercapai.\"";
+  }
+
+  // Log this year
+  state.yearLogs.push({ year: state.year, results, metCount, totalCount });
+
+  // Determine continue or end
+  let shouldEnd = false;
+  let endReason = null;
+  if (allMet && state.presiden >= 55) {
+    // bonus
+    state.presiden = clamp(state.presiden + 3);
+    // no end
+  } else if (halfOrLess) {
+    state.presiden = clamp(state.presiden - 6);
+    if (state.presiden <= 10) { shouldEnd = true; endReason = "fired"; }
+  }
+
+  const div = document.createElement("div");
+  div.className = "review";
+  div.innerHTML = `
+    <h1>📋 Evaluasi Akhir Tahun ${state.year}</h1>
+    <div class="sub">Capaian target presiden — ${metCount}/${totalCount} tercapai</div>
+
+    <div class="review-card">
+      <h3>🎯 Target Presiden</h3>
+      ${results.map(r => {
+        const cls = r.met ? "met" : "miss";
+        const badge = r.met ? "✓ Tercapai" : "✗ Miss";
+        return `<div class="t-row">
+          <span class="t-k">${r.t.label}</span>
+          <span class="t-v">
+            <span class="now ${cls}">${fmtStat(r.t.key)}</span>
+            <span class="badge ${cls}">${badge}</span>
+          </span>
+        </div>`;
+      }).join("")}
+    </div>
+
+    <div class="president-reaction">
+      <div class="who">👔 REAKSI PRESIDEN</div>
+      <div class="msg">${reaction}</div>
+    </div>
+
+    <div class="review-card">
+      <h3>📊 Stat Saat Ini</h3>
+      <div class="hud-stats" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:6px;">
+        ${STAT_META.map(s => `<div class="stat ${statClass(s.key)}">
+          <span class="lbl">${s.ico} ${s.lbl}</span>
+          <span class="val">${fmtStat(s.key)}</span>
+        </div>`).join("")}
       </div>
     </div>
 
-    <h2>1. Nama Menteri Keuangan</h2>
-    <input type="text" id="setup-name" placeholder="Nama kamu" value="${setupState.name}">
-
-    <h2>2. Jenis Kelamin</h2>
-    <div class="btn-grid">
-      <button class="opt ${setupState.gender==='L'?'sel':''}" data-gender="L"><span class="em">👨</span><span class="ttl">Laki-laki (Pak Menkeu)</span></button>
-      <button class="opt ${setupState.gender==='P'?'sel':''}" data-gender="P"><span class="em">👩</span><span class="ttl">Perempuan (Bu Menkeu)</span></button>
-    </div>
-
-    <h2>3. Tingkat Kesulitan</h2>
-    <div class="btn-grid">
-      <button class="opt ${setupState.difficulty==='santai'?'sel':''}" data-diff="santai"><span class="em">😌</span><span class="ttl">Santai</span><span class="desc">Kas besar, utang rendah, pasar ramah.</span></button>
-      <button class="opt ${setupState.difficulty==='normal'?'sel':''}" data-diff="normal"><span class="em">⚖️</span><span class="ttl">Normal</span><span class="desc">Kondisi awal standar.</span></button>
-      <button class="opt ${setupState.difficulty==='susah'?'sel':''}" data-diff="susah"><span class="em">🔥</span><span class="ttl">Susah</span><span class="desc">Kas tipis, utang tinggi, pasar gugup.</span></button>
-    </div>
-
-    <h2>4. Latar Belakang Profesional</h2>
-    <div class="btn-grid">
-      ${BACKGROUNDS.map(b => `<button class="opt ${setupState.background===b.id?'sel':''}" data-bg="${b.id}"><span class="em">${b.em}</span><span class="ttl">${b.ttl}</span><span class="desc">${b.desc}</span><span class="eff">${b.eff}</span></button>`).join("")}
-    </div>
-
-    <h2>5. Peran & Mandat Presiden</h2>
-    <div style="background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:14px; font-size:13px; line-height:1.6;">
-      Sebagai <b>Menkeu</b>, kamu adalah <b>pembantu presiden</b> — diangkat, bukan dipilih lewat pemilu. Karena itu kamu tidak punya janji kampanye sendiri.
-      <br><br>
-      Setelah dilantik, <b>presiden akan menetapkan 3 mandat prioritas</b> (misal: disiplin fiskal, jaga inflasi, selesaikan program) yang <b>wajib kamu jalankan</b>. Setiap akhir tahun, presiden meninjau pencapaianmu — gagal = penalti kepercayaan.
-      <br><br>
-      Presiden juga menugaskan <b>3 program prioritas nasional</b> (IKN, Makan Bergizi, Hilirisasi, dll.) yang harus kamu danai dari kas. Tiap program punya batas waktu — telat = presiden kecewa.
-    </div>
-
-    <button class="cta" id="start-btn" ${(!setupState.name || !setupState.gender || !setupState.background) ? "disabled" : ""}>Lantik Saya 🇮🇩</button>
-    <div class="small-muted" style="text-align:center; margin-top:14px;">Inspired by gamepresiden.vercel.app — adaptasi untuk peran Menkeu RI.</div>
+    ${allMet ? '<div style="text-align:center; color:var(--green); font-size:13px; margin-bottom:14px;">🎁 Bonus: kepercayaan presiden +3 (semua target tercapai)</div>' : ''}
+    ${halfOrLess ? '<div style="text-align:center; color:var(--red); font-size:13px; margin-bottom:14px;">⚠ Penalti: kepercayaan presiden −6 (sebagian besar target miss)</div>' : ''}
   `;
   app.appendChild(div);
 
-  // bind events
-  div.querySelector("#setup-name").addEventListener("input", e => { setupState.name = e.target.value; updateStartBtn(); });
-  div.querySelectorAll("[data-gender]").forEach(b => b.addEventListener("click", () => { setupState.gender = b.dataset.gender; render(); }));
-  div.querySelectorAll("[data-diff]").forEach(b => b.addEventListener("click", () => { setupState.difficulty = b.dataset.diff; render(); }));
-  div.querySelectorAll("[data-bg]").forEach(b => b.addEventListener("click", () => { setupState.background = b.dataset.bg; render(); }));
-  div.querySelector("#start-btn").addEventListener("click", startGame);
-
-  function updateStartBtn() {
-    const btn = div.querySelector("#start-btn");
-    btn.disabled = (!setupState.name || !setupState.gender || !setupState.background);
-  }
-}
-
-function startGame() {
-  const s = window._setup;
-  state = defaultState();
-  state.name = s.name;
-  state.gender = s.gender;
-  state.difficulty = s.difficulty;
-  state.background = s.background;
-  applyDifficulty();
-  applyBackground();
-  // Presiden menetapkan 3 mandat acak dari 8
-  const shuffled = PRESIDENTIAL_MANDATES.slice().sort(() => Math.random() - 0.5);
-  state.mandates = shuffled.slice(0, 3);
-  // Presiden menugaskan 3 program prioritas acak dari 6
-  const ppShuffled = PRESIDENT_PROGRAMS.slice().sort(() => Math.random() - 0.5);
-  state.presidentPrograms = ppShuffled.slice(0, 3).map(p => ({ ...p }));
-  state.presidentProgramState = {};
-  state.presidentPrograms.forEach(p => { state.presidentProgramState[p.id] = { fundedQs: 0, done: false }; });
-  state.quarter = 1;
-  state.currentEvent = pickEvent();
-  state.advisorLine = state.currentEvent.adv ? ADVISORS[state.currentEvent.adv] : null;
-  initMandateYear();
-  logEntry("Menkeu dilantik. Presiden menetapkan 3 mandat & 3 program prioritas.", "info");
-  render();
-}
-
-/* ---------- ASSIGN MANDATE STATUS ---------- */
-function initMandateYear() {
-  state.mandates.forEach(m => {
-    if (!state.mandateStatus[m.id]) state.mandateStatus[m.id] = [];
-    state.mandateStatus[m.id].push({ year: state.year, met: false });
-  });
-}
-
-/* ---------- REVIEW PRESIDEN TAHUNAN ----------
-   Dipanggil di akhir tahun (Q4 tutup). Presiden menilai apakah mandat
-   terpenuhi tahun itu, dan memberi penalti kalau gagal. */
-function reviewPresidenTahunan() {
-  // Hanya jalan kalau sudah selesai minimal 1 tahun penuh (quarter % 4 == 0)
-  const mandatesMet = [];
-  const mandatesFailed = [];
-  state.mandates.forEach(m => {
-    const met = m.chk(state);
-    if (met) {
-      mandatesMet.push(m);
-      state.presiden = clamp(state.presiden + 3);
-      state.pasar = clamp(state.pasar + 1);
-    } else {
-      mandatesFailed.push(m);
-      applyEffect(m.penalty);
-    }
-    // record status for this year
-    if (state.mandateStatus[m.id] && state.mandateStatus[m.id].length) {
-      state.mandateStatus[m.id][state.mandateStatus[m.id].length-1].met = met;
-    }
-  });
-  if (mandatesMet.length) {
-    logEntry(`Review Presiden Tahun ${state.year}: ${mandatesMet.length} mandat terpenuhi (+${mandatesMet.length*3} Presiden)`, "pos");
-    showToast("📋 Review Presiden", `${mandatesMet.length} dari 3 mandat terpenuhi tahun ini.`, "pos");
-  }
-  if (mandatesFailed.length) {
-    const failNames = mandatesFailed.map(m => m.ttl).join(", ");
-    logEntry(`Review Presiden Tahun ${state.year}: ${mandatesFailed.length} mandat GAGAL (${failNames})`, "neg");
-    showToast("⚠️ Mandat Gagal", `${mandatesFailed.length} mandat tidak terpenuhi: ${failNames}`, "neg");
-  }
-  // reset counter tahunan
-  state.policyCountYear = {};
-  // cek deadline program presiden
-  state.presidentPrograms.forEach(pp => {
-    const stt = state.presidentProgramState[pp.id];
-    if (!stt.done && state.quarter > pp.targetQuarter) {
-      // deadline terlewati, program belum tuntas
-      logEntry(`Program Presiden "${pp.nm}" melewati batas waktu (Q${pp.targetQuarter}). Presiden kecewa.`, "neg");
-      state.presiden = clamp(state.presiden - 5);
-      stt.done = true; // anggap selesai (gagal) supaya tidak dihitung lagi
-    }
-  });
-}
-
-/* ---------- TOPBAR ---------- */
-function statPill(ico, lbl, val, kind="") {
-  return `<span class="pill ${kind}" title="${lbl}"><span class="ico">${ico}</span><span class="lbl">${lbl}:</span><span class="val">${val}</span></span>`;
-}
-function renderTopbar(app) {
-  const b = calcBudget();
-  state.utangPct = b.utangPct;
-  state.defisitPct = b.defisitPct;
-  const topbar = document.createElement("div");
-  topbar.className = "topbar";
-  const prefix = state.gender === "P" ? "Bu" : "Pak";
-  topbar.innerHTML = `
-    <div class="brand">
-      <span class="crest">💰</span>
-      <div>
-        <div class="t1">Menkeu RI · ${prefix} ${state.name}</div>
-        <div class="t2">Tahun ${state.year} · Kuartal ${((state.quarter-1)%4)+1} / 20</div>
-      </div>
-    </div>
-    <div class="stat-row">
-      ${statPill("💵", "Kas", fmtRpLong(state.kas), state.kas < 100 ? "bad" : state.kas > 600 ? "good" : "")}
-      ${statPill("📜", "Utang", fmtRpLong(state.utang), state.utangPct > 50 ? "bad" : "")}
-      ${statPill("📊", "Utang/PDB", state.utangPct.toFixed(1)+"%", state.utangPct > 50 ? "bad" : state.utangPct < 30 ? "good" : "")}
-      ${statPill("📉", "Defisit", state.defisitPct.toFixed(1)+"% PDB", state.defisitPct > 3 ? "bad" : "good")}
-      ${statPill("📈", "Ekonomi", state.ekonomi.toFixed(0), state.ekonomi < 30 ? "bad" : state.ekonomi > 65 ? "good" : "")}
-      ${statPill("🍞", "Inflasi", (state.inflasi/6).toFixed(1)+"%", state.inflasi > 36 ? "bad" : "")}
-      ${statPill("🙂", "Rakyat", state.rakyat.toFixed(0), state.rakyat < 30 ? "bad" : state.rakyat > 65 ? "good" : "")}
-      ${statPill("🏛️", "DPR", state.dpr.toFixed(0), state.dpr < 30 ? "bad" : "")}
-      ${statPill("👔", "Presiden", state.presiden.toFixed(0), state.presiden < 30 ? "bad" : state.presiden > 65 ? "good" : "")}
-      ${statPill("🏦", "Pasar", state.pasar.toFixed(0), state.pasar < 30 ? "bad" : state.pasar > 65 ? "good" : "")}
-      ${statPill("🧼", "Integritas", state.integritas.toFixed(0), state.integritas < 30 ? "bad" : "")}
-      ${statPill("💵", "Cad. Devisa", "USD "+state.devisa.toFixed(0)+" B", state.devisa < 100 ? "bad" : "")}
-    </div>
-    <button class="help-btn" id="help-btn">❓ Cara Main</button>
-  `;
-  app.appendChild(topbar);
-  topbar.querySelector("#help-btn").addEventListener("click", showHelp);
-}
-
-/* ---------- MAIN (event + tabs) ---------- */
-function renderMain(main) {
-  // Quarter banner
-  const qb = document.createElement("div");
-  qb.className = "quarter-banner";
-  const qInYear = ((state.quarter - 1) % 4) + 1;
-  const pemiluWarn = (state.year >= 5) ? " · 🗳️ Tahun Pemilu!" : (state.year >= 4 ? " · Mendekati Pemilu" : "");
-  qb.innerHTML = `<div><span class="q">Q${qInYear} Tahun ${state.year}</span> <span class="y">· Kuartal ke-${state.quarter} dari 20${pemiluWarn}</span></div>`;
-  main.appendChild(qb);
-
-  // Event card
-  if (state.currentEvent && !state.eventResolved) {
-    const ev = state.currentEvent;
-    const adv = state.advisorLine;
-    const evDiv = document.createElement("div");
-    evDiv.className = "event";
-    let advHtml = "";
-    if (adv) {
-      advHtml = `<div class="advisor"><div class="ava">${adv.em}</div><div><div class="nm">${adv.nm}</div><div class="tx">"${adv.tx || (state.currentEvent.advtx || '')}"</div></div></div>`;
-    }
-    evDiv.innerHTML = `
-      <div class="who"><span class="av">🚨</span> Kejadian Kuartal Ini</div>
-      <div class="title">${ev.ttl}</div>
-      <div class="desc">${ev.ds}</div>
-      ${advHtml}
-      <div class="choices">
-        ${ev.choices.map((c, i) => `<button class="choice" data-choice="${i}"><div class="lbl">${c.lbl}</div><div class="hint">💡 ${c.hint}</div></button>`).join("")}
-      </div>
-    `;
-    main.appendChild(evDiv);
-    evDiv.querySelectorAll("[data-choice]").forEach(b => b.addEventListener("click", () => resolveChoice(parseInt(b.dataset.choice))));
-  } else if (state.eventResolved) {
-    const evDiv = document.createElement("div");
-    evDiv.className = "event";
-    evDiv.innerHTML = `<div class="who"><span class="av">✓</span> Kejadian Selesai</div><div class="desc">Pilih kebijakan tambahan atau tutup kuartal di bawah.</div>`;
-    main.appendChild(evDiv);
-  }
-
-  // Action tabs
-  const tabHost = document.createElement("div");
-  tabHost.innerHTML = `
-    <div class="tabs">
-      <button class="tab active" data-tab="policy">📋 Kebijakan</button>
-      <button class="tab" data-tab="program">🏗️ Program</button>
-      <button class="tab" data-tab="presprog">🏛️ Program Presiden</button>
-      <button class="tab" data-tab="aksi">⚡ Aksi Cepat</button>
-      <button class="tab" data-tab="apbn">📊 APBN</button>
-      <button class="tab" data-tab="log">📜 Log</button>
-    </div>
-    <div class="panel-tab active" id="pt-policy"></div>
-    <div class="panel-tab" id="pt-program"></div>
-    <div class="panel-tab" id="pt-presprog"></div>
-    <div class="panel-tab" id="pt-aksi"></div>
-    <div class="panel-tab" id="pt-apbn"></div>
-    <div class="panel-tab" id="pt-log"></div>
-  `;
-  main.appendChild(tabHost);
-  fillPolicyTab(tabHost.querySelector("#pt-policy"));
-  fillProgramTab(tabHost.querySelector("#pt-program"));
-  fillPresidentProgramTab(tabHost.querySelector("#pt-presprog"));
-  fillAksiTab(tabHost.querySelector("#pt-aksi"));
-  fillApbnTab(tabHost.querySelector("#pt-apbn"));
-  fillLogTab(tabHost.querySelector("#pt-log"));
-  tabHost.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
-    tabHost.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-    tabHost.querySelectorAll(".panel-tab").forEach(x => x.classList.remove("active"));
-    t.classList.add("active");
-    tabHost.querySelector("#pt-" + t.dataset.tab).classList.add("active");
-  }));
-
-  // End quarter
-  const endBtn = document.createElement("button");
-  endBtn.className = "end-quarter";
-  endBtn.textContent = state.eventResolved ? "Tutup Kuartal →" : "Lewati Kejadian & Tutup Kuartal →";
-  endBtn.disabled = false;
-  endBtn.addEventListener("click", () => {
-    if (!state.eventResolved) {
-      // lewati kejadian: terapkan efek 0
-      state.eventResolved = true;
-      logEntry("Kejadian dilewati tanpa keputusan.", "info");
-    }
-    advanceQuarter();
-  });
-  main.appendChild(endBtn);
-}
-
-function fillPolicyTab(c) {
-  const html = POLICIES.map(p => {
-    const usedOnce = p.once && state.policyCount[p.id];
-    const cd = state.policyCooldown[p.id] || 0;
-    const disabled = state.actionsUsed.policy >= 1 || usedOnce || cd > 0;
-    return `<div class="pol-item">
-      <div class="nm">${p.nm}${p.once ? " <span class='small-muted'>(sekali)</span>" : ""}</div>
-      <div class="ds">${p.ds}</div>
-      <div class="fx">💡 ${p.fx}</div>
-      ${cd > 0 ? `<div class="small-muted" style="color:var(--warn);">Cooldown: ${cd} kuartal</div>` : ""}
-      <button data-policy="${p.id}" ${disabled?"disabled":""}>${usedOnce ? "Sudah dipakai" : (cd > 0 ? "Cooldown" : "Tetapkan")}</button>
-    </div>`;
-  }).join("");
-  c.innerHTML = `<div class="small-muted" style="margin-bottom:8px;">Maks 1 kebijakan per kuartal. Kebijakan struktural berubah permanen.</div><div class="pol-list">${html}</div>`;
-  c.querySelectorAll("[data-policy]").forEach(b => b.addEventListener("click", () => usePolicy(b.dataset.policy)));
-}
-
-function fillProgramTab(c) {
-  const html = state.programs.map(prog => {
-    const def = PROGRAMS.find(p => p.id === prog.id);
-    const done = prog.progress >= 100;
-    const funded = state.programFunded[prog.id];
-    return `<div class="prog-item">
-      <div class="nm">${def.nm}${done ? " ✅" : ""}</div>
-      <div class="ds">${def.ds}</div>
-      <div class="fx">💡 Biaya ${fmtRpLong(def.perQ)} / kuartal · total ${fmtRpLong(def.totalCost)}</div>
-      <div class="pr"><div style="width:${prog.progress}%"></div></div>
-      <div class="pct">${prog.progress}%</div>
-      <button data-program="${prog.id}" ${(done || funded) ? "disabled" : ""}>${done ? "Tuntas" : (funded ? "Dijadwalkan" : "Danai Kuartal Ini")}</button>
-    </div>`;
-  }).join("");
-  c.innerHTML = `<div class="small-muted" style="margin-bottom:8px;">Danai tiap kuartal sampai 100%. Reward permanen.</div><div class="prog-list">${html}</div>`;
-  c.querySelectorAll("[data-program]").forEach(b => b.addEventListener("click", () => useProgram(b.dataset.program)));
-}
-
-function fillPresidentProgramTab(c) {
-  if (!state.presidentPrograms.length) { c.innerHTML = `<div class="small-muted">Belum ada program presiden.</div>`; return; }
-  const html = state.presidentPrograms.map(pp => {
-    const stt = state.presidentProgramState[pp.id] || { fundedQs: 0, done: false };
-    const pct = Math.min(100, Math.round((stt.fundedQs / pp.totalNeed) * 100));
-    const funded = state.presidentProgramFunded && state.presidentProgramFunded[pp.id];
-    const overDeadline = state.quarter > pp.targetQuarter;
-    const statusLabel = stt.done ? (overDeadline && stt.fundedQs < pp.totalNeed ? "⏰ Terlambat" : "✅ Tuntas") : (overDeadline ? "⏰ Lewat batas waktu" : `⏳ Batas waktu Q${pp.targetQuarter}`);
-    return `<div class="prog-item" style="${stt.done && !overDeadline ? 'border-color:var(--green);' : ''}">
-      <div class="nm">🏛️ ${pp.nm} ${stt.done && !overDeadline ? '✅' : ''}</div>
-      <div class="ds">${pp.ds}</div>
-      <div class="fx">💡 Biaya ${fmtRpLong(pp.perQ)} / kuartal · ${pp.totalNeed} tahap · status: ${statusLabel}</div>
-      <div class="pr"><div style="width:${pct}%"></div></div>
-      <div class="pct">${pct}% (${stt.fundedQs}/${pp.totalNeed} tahap)</div>
-      <button data-pp="${pp.id}" ${(stt.done || funded) ? "disabled" : ""}>${stt.done ? "Selesai" : (funded ? "Dijadwalkan" : "Danai Kuartal Ini")}</button>
-    </div>`;
-  }).join("");
-  c.innerHTML = `<div class="small-muted" style="margin-bottom:8px;">🏛️ Program prioritas dari Presiden. Danai tiap kuartal sampai ${'<b>'}tuntas${'</b>'}. Telat = Presiden kecewa (−5 Presiden).</div><div class="prog-list">${html}</div>`;
-  c.querySelectorAll("[data-pp]").forEach(b => b.addEventListener("click", () => usePresidentProgram(b.dataset.pp)));
-}
-
-function fillAksiTab(c) {
-  c.innerHTML = `
-    <div class="small-muted" style="margin-bottom:8px;">Aksi cepat maks 1× masing-masing per kuartal.</div>
-    <div class="pol-list">
-      <div class="pol-item">
-        <div class="nm">🤝 Lobi DPR</div>
-        <div class="ds">Ngopi bareng ketua fraksi, bagi proyek. Dukungan DPR naik.</div>
-        <div class="fx">💡 −Rp 30 T, +10 DPR, +1 Presiden</div>
-        <button data-aksi="lobby" ${state.actionsUsed.lobby?"disabled":""}>${state.actionsUsed.lobby?"Sudah":"Lobi Sekarang"}</button>
-      </div>
-      <div class="pol-item">
-        <div class="nm">🏛️ Briefing Presiden</div>
-        <div class="ds">Jumpa Presiden di Istana, laporkan posisi fiskal.</div>
-        <div class="fx">💡 +8 Presiden, +1 Pasar (gratis)</div>
-        <button data-aksi="briefing" ${state.actionsUsed.briefing?"disabled":""}>${state.actionsUsed.briefing?"Sudah":"Briefing"}</button>
-      </div>
-      <div class="pol-item">
-        <div class="nm">🧼 Audit Independen APBN</div>
-        <div class="ds">Minta BPK audit, transparansi naik.</div>
-        <div class="fx">💡 −Rp 15 T, +6 Integritas, +2 Pasar</div>
-        <button data-aksi="audit" ${state.actionsUsed.audit?"disabled":""}>${state.actionsUsed.audit?"Sudah":"Audit"}</button>
-      </div>
-    </div>
-  `;
-  c.querySelectorAll("[data-aksi]").forEach(b => b.addEventListener("click", () => {
-    const a = b.dataset.aksi;
-    if (a === "lobby") useLobby();
-    else if (a === "briefing") useBriefing();
-    else if (a === "audit") useAudit();
-  }));
-}
-
-function fillApbnTab(c) {
-  const b = calcBudget();
-  c.innerHTML = `
-    <div class="small-muted" style="margin-bottom:8px;">Proyeksi kuartal ini (otomatis di Tutup Kuartal):</div>
-    <table class="ledger">
-      <tr><td colspan="2" style="color:var(--green); font-weight:700;">PENERIMAAN</td></tr>
-      <tr class="in"><td>Pajak (PPN+PPh)</td><td class="r">${fmtRpLong(b.taxRev)}</td></tr>
-      <tr class="in"><td>Bea & Cukai</td><td class="r">${fmtRpLong(b.beaCukai)}</td></tr>
-      <tr class="in"><td>Migas & Minerba</td><td class="r">${fmtRpLong(b.migasMinerba)}</td></tr>
-      <tr class="in"><td>Dividen BUMN</td><td class="r">${fmtRpLong(b.dividenBUMN)}</td></tr>
-      <tr class="tot in"><td>Total Penerimaan</td><td class="r">${fmtRpLong(b.penerimaan)}</td></tr>
-      <tr><td colspan="2" style="color:var(--red); font-weight:700; padding-top:10px;">BELANJA WAJIB</td></tr>
-      <tr class="out"><td>Gaji ASN</td><td class="r">${fmtRpLong(b.gajiASN)}</td></tr>
-      <tr class="out"><td>Bunga Utang</td><td class="r">${fmtRpLong(b.bungaUtang)}</td></tr>
-      <tr class="out"><td>Subsidi (BBM+Pangan)</td><td class="r">${fmtRpLong(b.subsidi)}</td></tr>
-      <tr class="out"><td>Transfer Daerah</td><td class="r">${fmtRpLong(b.transferDaerah)}</td></tr>
-      <tr class="out"><td>Pertahanan</td><td class="r">${fmtRpLong(b.pertahanan)}</td></tr>
-      <tr class="tot out"><td>Total Belanja Wajib</td><td class="r">${fmtRpLong(b.belanjaWajib)}</td></tr>
-      <tr class="tot"><td>${b.defisit > 0 ? "DEFISIT (→ utang baru)" : "SURPLUS"}</td><td class="r" style="color:${b.defisit>0?'var(--red)':'var(--green)'}">${fmtRpLong(Math.abs(b.defisit))}</td></tr>
-    </table>
-    <div class="small-muted" style="margin-top:10px;">Defisit: ${b.defisitPct.toFixed(2)}% PDB · Utang/PDB: ${b.utangPct.toFixed(1)}% · PDB nominal: ${fmtRpLong(state.pdb)}</div>
-  `;
-}
-
-function fillLogTab(c) {
-  if (!state.log.length) { c.innerHTML = `<div class="small-muted">Belum ada aktivitas.</div>`; return; }
-  c.innerHTML = `<div class="log">${state.log.map(e => `<div class="entry ${e.type}"><span class="t">${e.t}</span>${e.text}</div>`).join("")}</div>`;
-}
-
-/* ---------- SIDE ---------- */
-function renderSide(side) {
-  // Mandate card (presiden)
-  const mc = document.createElement("div");
-  mc.className = "card";
-  mc.innerHTML = `<h3>📋 Mandat Presiden</h3><div class="small-muted" style="margin-bottom:8px;">Wajib jalankan. Ditinjau tiap akhir tahun.</div>`;
-  const mlist = state.mandates.map(m => {
-    const met = m.chk(state);
-    return `<div style="padding:6px 0; border-bottom:1px dashed var(--line); font-size:12px; display:flex; justify-content:space-between; gap:6px;">
-      <span>${m.em} <b>${m.ttl}</b><br><span class="small-muted">${m.target}</span></span>
-      <span style="color:${met?'var(--green)':'var(--warn)'}; white-space:nowrap;">${met?'✓':'⏳'}</span>
-    </div>`;
-  }).join("");
-  mc.innerHTML += mlist;
-  side.appendChild(mc);
-
-  // President programs card
-  if (state.presidentPrograms.length) {
-    const ppc = document.createElement("div");
-    ppc.className = "card";
-    ppc.innerHTML = `<h3>🏛️ Program Presiden</h3>`;
-    const plist = state.presidentPrograms.map(pp => {
-      const stt = state.presidentProgramState[pp.id] || { fundedQs: 0, done: false };
-      const pct = Math.min(100, Math.round((stt.fundedQs / pp.totalNeed) * 100));
-      const over = state.quarter > pp.targetQuarter;
-      const done = stt.done && !over;
-      return `<div style="padding:5px 0; border-bottom:1px dashed var(--line); font-size:12px;">
-        ${done?'✅':(over?'⏰':'🏗️')} <b>${pp.nm}</b>
-        <div class="pr" style="margin-top:3px;"><div style="width:${pct}%"></div></div>
-        <div class="pct">${pct}% · batas Q${pp.targetQuarter}</div>
-      </div>`;
-    }).join("");
-    ppc.innerHTML += plist;
-    side.appendChild(ppc);
-  }
-
-  // Advisor card
-  if (state.advisorLine) {
-    const ac = document.createElement("div");
-    ac.className = "card";
-    const adv = state.advisorLine;
-    ac.innerHTML = `<h3>💬 Saran Penasihat</h3><div class="advisor" style="margin-bottom:0;"><div class="ava">${adv.em}</div><div><div class="nm">${adv.nm}</div><div class="tx">${state.currentEvent ? state.currentEvent.advtx || 'Pilih dengan hati-hati.' : ''}</div></div></div>`;
-    side.appendChild(ac);
-  }
-
-  // Background card
-  const bg = BACKGROUNDS.find(b => b.id === state.background);
-  if (bg) {
-    const bc = document.createElement("div");
-    bc.className = "card";
-    bc.innerHTML = `<h3>🎭 Profil Menkeu</h3><div style="font-size:13px;"><b>${bg.em} ${bg.ttl}</b><br><span class="small-muted">${bg.desc}</span><br><span style="color:var(--gold); font-size:11px;">${bg.eff}</span></div>`;
-    side.appendChild(bc);
-  }
-}
-
-/* ---------- HELP MODAL ---------- */
-function showHelp() {
-  const back = document.createElement("div");
-  back.className = "modal-backdrop";
-  let page = 0;
-  const modal = document.createElement("div");
-  modal.className = "modal";
-  back.appendChild(modal);
-  document.body.appendChild(back);
-  function renderPage() {
-    const t = TUT[page];
-    modal.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <div class="pg">CARA MAIN · <span class="pg-no">${page+1}/${TUT.length}</span></div>
-        <div class="close-x" id="x-close">✕</div>
-      </div>
-      <h2>${t.t}</h2>
-      <p>${t.b}</p>
-      <div class="nav">
-        <button id="x-prev" ${page===0?"disabled":""}>← Kembali</button>
-        <button id="x-next">${page===TUT.length-1?"Selesai":"Lanjut →"}</button>
-      </div>
-    `;
-    modal.querySelector("#x-close").addEventListener("click", () => back.remove());
-    modal.querySelector("#x-prev").addEventListener("click", () => { if (page > 0) { page--; renderPage(); } });
-    modal.querySelector("#x-next").addEventListener("click", () => { if (page < TUT.length-1) { page++; renderPage(); } else back.remove(); });
-  }
-  renderPage();
-  back.addEventListener("click", e => { if (e.target === back) back.remove(); });
-}
-
-/* ---------- GAME OVER ---------- */
-function renderGameOver(app) {
-  // Compute verdict based on mandate & program completion
-  let score = 0;
-  // Count mandates met across the years tracked
-  let mandateMetCount = 0, mandateTotalYears = 0;
-  state.mandates.forEach(m => {
-    const statuses = state.mandateStatus[m.id] || [];
-    statuses.forEach(s => { mandateTotalYears++; if (s.met) mandateMetCount++; });
-  });
-  // final-year check
-  const finalMet = state.mandates.filter(m => m.chk(state)).length;
-  score += Math.round((finalMet / state.mandates.length) * 30);
-  // president programs done
-  const ppDone = state.presidentPrograms.filter(pp => state.presidentProgramState[pp.id]?.done).length;
-  const ppOverDeadline = state.presidentPrograms.filter(pp => state.quarter > pp.targetQuarter && !state.presidentProgramState[pp.id]?.done).length;
-  score += ppDone * 12;
-  score -= ppOverDeadline * 8;
-  // bonus conditions
-  if (state.kas > 400) score += 6;
-  if (state.ekonomi >= 60) score += 6;
-  if (state.integritas >= 60) score += 6;
-  if (state.utangPct < 35) score += 6;
-  if (state.pasar >= 60) score += 6;
-  if (state.presiden >= 60) score += 8;
-  score = Math.min(100, Math.max(0, score));
-  // verdict
-  let verdict, verdictLabel;
-  if (state.gameOverReason.includes("Bangkrut") || state.gameOverReason.includes("Resesi") || state.gameOverReason.includes("Dipecat") || state.gameOverReason.includes("Krisis") || state.gameOverReason.includes("Hyperinflasi") || state.gameOverReason.includes("Demo")) {
-    if (state.integritas < 30) { verdict = "🚔 Ditahan KPK"; verdictLabel = "Akhir karir di ruang sidang tipikor."; }
-    else { verdict = "❌ Gagal Total"; verdictLabel = "Kamu dipecat sebelum masa jabatan habis."; }
-    score = Math.min(score, 25);
+  // Determine next
+  const isLastYear = state.year >= YEARS.length;
+  let btnLabel, btnHandler;
+  if (shouldEnd) {
+    state.endedReason = endReason;
+    btnLabel = "Lihat Nasib Akhirmu →";
+    btnHandler = () => { state.finished = true; state.showYearReview = false; render(); };
+  } else if (isLastYear) {
+    btnLabel = "Lihat Hasil Akhir Periode →";
+    btnHandler = () => { state.finished = true; state.showYearReview = false; render(); };
   } else {
-    if (score >= 85) { verdict = "🏆 Menteri Kepercayaan Presiden"; verdictLabel = "Presiden memuji hasil kerjamu, dipertahankan untuk kabinet berikutnya."; }
-    else if (score >= 65) { verdict = "⭐ Menkeu Andalan"; verdictLabel = "Karirmu dilanjutkan, presiden sering minta arahan fiskalmu."; }
-    else if (score >= 45) { verdict = "🙂 Biasa Saja"; verdictLabel = "Masa jabatan selesai tanpa gembar-gembor."; }
-    else { verdict = "😐 Dilupakan Presiden"; verdictLabel = "Penggantimu mengambil alih tanpa banyak yang ingatmu."; }
+    btnLabel = `Lanjut ke Tahun ${state.year + 1} →`;
+    btnHandler = () => {
+      state.year += 1;
+      state.showYearReview = false;
+      state.showYearIntro = true;
+      render();
+    };
   }
+  const btn = document.createElement("div");
+  btn.className = "cta-center";
+  btn.innerHTML = `<button class="cta" id="yr-next">${btnLabel}</button>`;
+  app.appendChild(btn);
+  btn.querySelector("#yr-next").addEventListener("click", btnHandler);
+}
+
+/* ---------- ENDING ---------- */
+function renderEnding(app) {
+  const survivedAll5 = state.year >= YEARS.length && state.endedReason === null && state.qIdx >= YEARS.length * Q_PER_YEAR;
+
+  let verdict, verdictLabel, verdictClass, score = 0;
+
+  // Score calculation
+  if (state.kas > 600) score += 8;
+  if (state.ekonomi >= 60) score += 8;
+  if (state.inflasi <= 24) score += 8;
+  if (state.rakyat >= 60) score += 8;
+  if (state.presiden >= 60) score += 10;
+  if (state.pasar >= 60) score += 8;
+  if (state.integritas >= 60) score += 8;
+  if (survivedAll5) score += 25;
+  // Year bonus
+  score += (state.yearLogs.length * 5);
+  if (state.kas <= 0) score -= 15;
+  if (state.integritas < 30) score -= 10;
+  score = Math.max(0, Math.min(100, score));
+
+  if (state.endedReason === "bankrupt") {
+    verdict = "💀 Negara Bangkrut";
+    verdictLabel = `Kas habis di tahun ${state.year}. Kamu dipecat sebelum periode selesai. Kegagalan total pengelolaan kas.`;
+    verdictClass = "weak";
+    score = Math.min(score, 20);
+  } else if (state.endedReason === "fired") {
+    verdict = "❌ Dipecat Presiden";
+    verdictLabel = `Kepercayaan presiden habis di tahun ${state.year}. Reshuffle mendadak — kamu keluar sebelum periode 5 tahun selesai.`;
+    verdictClass = "weak";
+    score = Math.min(score, 25);
+  } else if (state.endedReason === "kpk") {
+    verdict = "🚔 Diusut KPK";
+    verdictLabel = `Integritas anjlok di tahun ${state.year}. Skandal terbongkar, kamu jadi tersangka sebelum periode selesai.`;
+    verdictClass = "weak";
+    score = Math.min(score, 25);
+  } else if (survivedAll5 && score >= 70) {
+    verdict = "🏆 Menteri Keuangan Legendaris";
+    verdictLabel = "Kamu bertahan 5 tahun penuh dan menyimpan warisan fiskal yang kuat. Presiden memuji, sejarah mencatat namamu dengan tinta emas.";
+    verdictClass = "legendary";
+  } else if (survivedAll5 && score >= 55) {
+    verdict = "⭐ Menkeu Andalan Presiden";
+    verdictLabel = "Lima tahun penuh berhasil diselesaikan. Presiden puas, banyak pihak minta arahan fiskalmu untuk periode berikutnya.";
+    verdictClass = "strong";
+  } else if (survivedAll5 && score >= 40) {
+    verdict = "🙂 Bertahan, Biasa Saja";
+    verdictLabel = "Kamu menyelesaikan periode 5 tahun. Tidak ada gembar-gembor, tapi juga tidak ada skandal besar. Penggantimu mengambil alih dengan tenang.";
+    verdictClass = "decent";
+  } else if (survivedAll5) {
+    verdict = "😐 Selamat Kelar, Tapi Lupa";
+    verdictLabel = "Kamu bertahan 5 tahun — tapi banyak target miss. Presiden tak lagi memuji, kamu dilupakan begitu saja.";
+    verdictClass = "weak";
+  } else {
+    verdict = "📉 Periode Tidak Selesai";
+    verdictLabel = `Kamu tidak bertahan sampai akhir tahun ke-5. Berhenti di tahun ${state.year}.`;
+    verdictClass = "weak";
+  }
+
+  const tones = { pos: 0, neg: 0, neutral: 0 };
+  state.answers.forEach(a => { tones[a.tone] = (tones[a.tone]||0) + 1; });
+
+  const totalTargetsAllYears = state.yearLogs.reduce((s, yl) => s + yl.totalCount, 0);
+  const totalMetAllYears = state.yearLogs.reduce((s, yl) => s + yl.metCount, 0);
 
   const div = document.createElement("div");
-  div.className = "card gameover setup";
-  const prefix = state.gender === "P" ? "Bu" : "Pak";
+  div.className = "ending";
   div.innerHTML = `
-    <div class="big">${verdict}</div>
-    <div class="reason">${state.gameOverReason}</div>
-    <div class="verdict">
-      <div><span class="label">Nama:</span> ${prefix} ${state.name}</div>
-      <div><span class="label">Latar Belakang:</span> ${BACKGROUNDS.find(b=>b.id===state.background).ttl}</div>
-      <div><span class="label">Kuartal Selesai:</span> ${state.quarter} / 20</div>
-      <div><span class="label">Kondisi Akhir:</span> Kas ${fmtRpLong(state.kas)} · Utang/PDB ${state.utangPct.toFixed(1)}% · Ekonomi ${state.ekonomi.toFixed(0)} · Inflasi ${(state.inflasi/6).toFixed(1)}%</div>
-      <div><span class="label">Integritas:</span> ${state.integritas.toFixed(0)} · Pasar: ${state.pasar.toFixed(0)} · Presiden: ${state.presiden.toFixed(0)}</div>
-      <div style="margin-top:8px; color:var(--muted);">${verdictLabel}</div>
+    <h1>${survivedAll5 ? '🎉 Periode 5 Tahun Selesai' : '🔚 Akhir Masa Jabatan'}</h1>
+    <div class="verdict-big ${verdictClass}">${verdict}</div>
+    <div class="verdict-label">${verdictLabel}</div>
+
+    <div class="score-row">
+      <span class="score-num">${score}</span>
+      <span class="score-max">/ 100</span>
     </div>
-    <div class="score">${score}<span style="font-size:18px; color:var(--muted);">/100</span></div>
-    <div class="promises">
-      <div style="font-weight:700; color:var(--gold); margin-bottom:6px;">📋 Mandat Presiden (status akhir tahun)</div>
-      ${state.mandates.map(m => {
-        const ok = m.chk(state);
-        return `<div class="p ${ok?'yes':'no'}"><span>${m.em} ${m.ttl}</span><span>${ok?'✓ Tercapai':'✗ Gagal'}</span></div>`;
+
+    <div class="final-stats">
+      ${STAT_META.map(s => `<div class="stat ${statClass(s.key)}">
+        <span class="lbl">${s.ico} ${s.lbl}</span>
+        <span class="val">${fmtStat(s.key)}</span>
+      </div>`).join("")}
+    </div>
+
+    <div class="summary">
+      <h3>📊 Ringkasan Periode</h3>
+      <div class="row"><span class="k">Tahun diselesaikan</span><span class="v ${state.year >= 5 ? 'pos' : 'neg'}">${state.yearLogs.length} / 5</span></div>
+      <div class="row"><span class="k">Total target tercapai</span><span class="v ${totalMetAllYears >= Math.ceil(totalTargetsAllYears/2) ? 'pos' : 'neg'}">${totalMetAllYears} / ${totalTargetsAllYears}</span></div>
+      <div class="row"><span class="k">Pertanyaan dijawab</span><span class="v">${state.answers.length} / ${YEARS.length * Q_PER_YEAR}</span></div>
+      <div class="row"><span class="k">Keputusan tegas (positif)</span><span class="v pos">${tones.pos||0}</span></div>
+      <div class="row"><span class="k">Keputusan berisiko (negatif)</span><span class="v neg">${tones.neg||0}</span></div>
+      <div class="row"><span class="k">Keputusan kompromi (netral)</span><span class="v">${tones.neutral||0}</span></div>
+    </div>
+
+    <div class="summary">
+      <h3>📅 Capaian per Tahun</h3>
+      ${state.yearLogs.map(yl => {
+        const cls = yl.metCount === yl.totalCount ? "pos" : (yl.metCount >= Math.ceil(yl.totalCount/2) ? "" : "neg");
+        return `<div class="row"><span class="k">Tahun ${yl.year}</span><span class="v ${cls}">${yl.metCount}/${yl.totalCount} target</span></div>`;
+      }).join("")}
+      ${Array.from({length: 5 - state.yearLogs.length}, (_, i) => {
+        const yr = state.yearLogs.length + i + 1;
+        return `<div class="row"><span class="k">Tahun ${yr}</span><span class="v neg">— tidak diselesaikan —</span></div>`;
       }).join("")}
     </div>
-    <div class="promises" style="margin-top:8px;">
-      <div style="font-weight:700; color:var(--gold); margin-bottom:6px;">🏛️ Program Presiden</div>
-      ${state.presidentPrograms.map(pp => {
-        const stt = state.presidentProgramState[pp.id] || { fundedQs: 0, done: false };
-        const over = state.quarter > pp.targetQuarter;
-        const ok = stt.done && !over;
-        const status = ok ? '✓ Tuntas' : (over ? '⏰ Lewat batas' : (stt.done ? '✓ Tuntas (terlambat)' : `${stt.fundedQs}/${pp.totalNeed} tahap`));
-        return `<div class="p ${ok?'yes':'no'}"><span>${pp.nm}</span><span>${status}</span></div>`;
-      }).join("")}
+
+    ${DISCLAIMER}
+
+    <div class="cta-center">
+      <button class="cta" id="restart-btn">🔄 Main Lagi</button>
     </div>
-    <div class="disclaimer-box">
-      <div class="disclaimer-title">📢 Disclaimer</div>
-      <div class="disclaimer-body">
-        Game ini <b>100% fiksi</b>, dibuat untuk <b>hiburan dan tujuan edukasi</b>. Tokoh, partai, kasus, angka, dan kejadian di sini adalah rekaan. Kemiripan dengan kenyataan adalah kebetulan. Bukan opini politik atau saran kebijakan.
-      </div>
-    </div>
-    <button id="restart-btn">🔄 Main Lagi</button>
   `;
   app.appendChild(div);
   div.querySelector("#restart-btn").addEventListener("click", () => {
     state = null;
-    window._setup = { name: "", gender: "", difficulty: "normal", background: null };
     render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
